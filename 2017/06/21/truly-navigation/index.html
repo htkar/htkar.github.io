@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="html5,tricks,user friendly," />
 
 
 
@@ -93,12 +93,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="不要温柔的走进那个良夜">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="不能自动隐藏的导航栏都是不合格的导航栏。 为什么这么说呢，因为使用空格键或翻页键的时候，不隐藏的导航栏会始终占用页面顶上的一部分空间。导致大部分时候空格键或翻页键处于不可用状态。在键盘这么空间极度有限的情况下能分配出三个键用来改进用户的阅读体验，却被大部分开发者忽略了。 在 chrome 浏览器上经试验，会留几十像素的冗余，具体多少是根据你窗口大小来的，为的是方便看到上次阅读到哪里了。 为了解决这">
+<meta name="keywords" content="html5,tricks,user friendly">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个正确的导航栏实现方式">
+<meta property="og:url" content="http://yoursite.com/2017/06/21/truly-navigation/index.html">
 <meta property="og:site_name" content="不要温柔的走进那个良夜">
+<meta property="og:description" content="不能自动隐藏的导航栏都是不合格的导航栏。 为什么这么说呢，因为使用空格键或翻页键的时候，不隐藏的导航栏会始终占用页面顶上的一部分空间。导致大部分时候空格键或翻页键处于不可用状态。在键盘这么空间极度有限的情况下能分配出三个键用来改进用户的阅读体验，却被大部分开发者忽略了。 在 chrome 浏览器上经试验，会留几十像素的冗余，具体多少是根据你窗口大小来的，为的是方便看到上次阅读到哪里了。 为了解决这">
+<meta property="og:updated_time" content="2017-06-22T01:27:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="不要温柔的走进那个良夜">
+<meta name="twitter:title" content="一个正确的导航栏实现方式">
+<meta name="twitter:description" content="不能自动隐藏的导航栏都是不合格的导航栏。 为什么这么说呢，因为使用空格键或翻页键的时候，不隐藏的导航栏会始终占用页面顶上的一部分空间。导致大部分时候空格键或翻页键处于不可用状态。在键盘这么空间极度有限的情况下能分配出三个键用来改进用户的阅读体验，却被大部分开发者忽略了。 在 chrome 浏览器上经试验，会留几十像素的冗余，具体多少是根据你窗口大小来的，为的是方便看到上次阅读到哪里了。 为了解决这">
 
 
 
@@ -126,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/21/truly-navigation/"/>
 
 
 
 
 
-  <title>不要温柔的走进那个良夜</title>
+  <title>一个正确的导航栏实现方式 | 不要温柔的走进那个良夜</title>
   
 
 
@@ -157,9 +162,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -242,9 +245,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -270,9 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/21/truly-navigation/" itemprop="url">一个正确的导航栏实现方式</a></h1>
+          <h1 class="post-title" itemprop="name headline">一个正确的导航栏实现方式</h1>
         
 
         <div class="post-meta">
@@ -319,9 +320,7 @@
       
 
       
-        
-          
-            <p>不能自动隐藏的导航栏都是不合格的导航栏。</p>
+        <p>不能自动隐藏的导航栏都是不合格的导航栏。</p>
 <p>为什么这么说呢，因为使用空格键或翻页键的时候，不隐藏的导航栏会始终占用页面顶上的一部分空间。导致大部分时候空格键或翻页键处于不可用状态。在键盘这么空间极度有限的情况下能分配出三个键用来改进用户的阅读体验，却被大部分开发者忽略了。</p>
 <p>在 chrome 浏览器上经试验，会留几十像素的冗余，具体多少是根据你窗口大小来的，为的是方便看到上次阅读到哪里了。</p>
 <p>为了解决这问题先看下浏览器滚动是怎么工作的。通过开发这工具发现，当一个网页超出一屏的显示范围的时候，html，body 的高度是整个内容高度，而不是窗口的高度。这样会导致我们整个网页在滚动的时候实际上是滚动的html里面所有的内容。</p>
@@ -332,42 +331,60 @@
 <p> <a href="/demo/truly_navigation_auto_hide.html">demo</a></p>
 <p>方案三：也是最简单的，直接让滚动条跟随窗口一起滚动。这里就不提供实现代码了。</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/html5/" rel="tag"># html5</a>
+          
+            <a href="/tags/tricks/" rel="tag"># tricks</a>
+          
+            <a href="/tags/user-friendly/" rel="tag"># user friendly</a>
+          
+        </div>
+      
+
+      
+      
+      
 
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -375,6 +392,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -568,10 +589,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
