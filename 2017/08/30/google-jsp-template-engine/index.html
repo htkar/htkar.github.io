@@ -93,12 +93,16 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="不要温柔的走进那个良夜">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="首先说明 一下需求，有若干个 jsp 页面，想使用同一个 jsp 做 parent 然后， 每个 view 只放入 parent 的某个节点下面，比如 content。 很简单的一个需求但是至少花了我三天的时间。由于是使用的 google，所以就想把通过不断的自我提问以及根据网上人们的答案一步步缩小问题范围，修正精炼需求的过程记录下来。顺便看一下 google 是如何一步步引导自己走向新的不熟悉的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次 js 模板引擎 Google 探索之旅">
+<meta property="og:url" content="http://yoursite.com/2017/08/30/google-jsp-template-engine/index.html">
 <meta property="og:site_name" content="不要温柔的走进那个良夜">
+<meta property="og:description" content="首先说明 一下需求，有若干个 jsp 页面，想使用同一个 jsp 做 parent 然后， 每个 view 只放入 parent 的某个节点下面，比如 content。 很简单的一个需求但是至少花了我三天的时间。由于是使用的 google，所以就想把通过不断的自我提问以及根据网上人们的答案一步步缩小问题范围，修正精炼需求的过程记录下来。顺便看一下 google 是如何一步步引导自己走向新的不熟悉的">
+<meta property="og:updated_time" content="2017-08-30T07:26:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="不要温柔的走进那个良夜">
+<meta name="twitter:title" content="记一次 js 模板引擎 Google 探索之旅">
+<meta name="twitter:description" content="首先说明 一下需求，有若干个 jsp 页面，想使用同一个 jsp 做 parent 然后， 每个 view 只放入 parent 的某个节点下面，比如 content。 很简单的一个需求但是至少花了我三天的时间。由于是使用的 google，所以就想把通过不断的自我提问以及根据网上人们的答案一步步缩小问题范围，修正精炼需求的过程记录下来。顺便看一下 google 是如何一步步引导自己走向新的不熟悉的">
 
 
 
@@ -126,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/30/google-jsp-template-engine/"/>
 
 
 
 
 
-  <title>不要温柔的走进那个良夜</title>
+  <title>记一次 js 模板引擎 Google 探索之旅 | 不要温柔的走进那个良夜</title>
   
 
 
@@ -157,9 +161,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -242,9 +244,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -270,9 +272,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/30/google-jsp-template-engine/" itemprop="url">记一次 js 模板引擎 Google 探索之旅</a></h1>
+          <h1 class="post-title" itemprop="name headline">记一次 js 模板引擎 Google 探索之旅</h1>
         
 
         <div class="post-meta">
@@ -319,9 +319,7 @@
       
 
       
-        
-          
-            <p>首先说明 一下需求，有若干个 jsp 页面，想使用同一个 jsp 做 parent 然后， 每个 view 只放入 parent 的某个节点下面，比如 content。</p>
+        <p>首先说明 一下需求，有若干个 jsp 页面，想使用同一个 jsp 做 parent 然后， 每个 view 只放入 parent 的某个节点下面，比如 content。</p>
 <p>很简单的一个需求但是至少花了我三天的时间。由于是使用的 google，所以就想把通过不断的自我提问以及根据网上人们的答案一步步缩小问题范围，修正精炼需求的过程记录下来。顺便看一下 google 是如何一步步引导自己走向新的不熟悉的领域。再看一下自己是如何一步步步入歧途，以及如何迷途知返的。</p>
 <p>知道需求我们就开始去寻找解决方案吧。因为我用的是 spring mvc，所以先看看官方有没有解决方案吧。</p>
 <p>1， google “spring mvc view adapter”,</p>
@@ -457,20 +455,27 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> <span class="string">"lrcpage"</span>;</div></pre></td></tr></table></figure>
 <p>进行以上的调研。</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
@@ -478,265 +483,38 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/04/http-cache/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeffry Yu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://orwf5fma6.bkt.clouddn.com/Into_the_Unknown_by_kerembeyit.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不要温柔的走进那个良夜">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/04/http-cache/" itemprop="url">200 (from cache) vs 304</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-04T09:56:18+08:00">
-                07.04.2017
-              </time>
+              <a href="/2017/07/04/http-cache/" rel="next" title="200 (from cache) vs 304">
+                <i class="fa fa-chevron-left"></i> 200 (from cache) vs 304
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <blockquote>
-<p>from disk cache<br>from memory cache</p>
-</blockquote>
-<h3 id="强校验器与弱校验器。"><a href="#强校验器与弱校验器。" class="headerlink" title="强校验器与弱校验器。"></a>强校验器与弱校验器。</h3><p>ETags，作为缓存的一种强校验器。<br>Last-Modified 响应头可以作为一种弱校验器。</p>
-<p>如果没有包含校验器，并且缓存没有过期。就会有200 (from disk cache / from memory cache)情况，这样浏览可以更快的获取到资源，没有网络开销。</p>
-<p>如果有校验器，<br>就始终有网路开销。在缓存没有失效的情况下服务器会返回 304.</p>
-<h3 id="使用情况"><a href="#使用情况" class="headerlink" title="使用情况"></a>使用情况</h3><p>在改动不频繁的情况下可以不使用校验器。像博客系统的 js，css 资源。图片</p>
-<p>在改动较频繁的情况下，根据情况使用强弱校验器。或者在 url 后面加入版本号，不使用校验器。</p>
-<h3 id="缓存判断寻找顺序"><a href="#缓存判断寻找顺序" class="headerlink" title="缓存判断寻找顺序"></a>缓存判断寻找顺序</h3><p>Cache-control: max-age=N =》 Expires: <date> =》Last-Modified: <date></date></date></p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><blockquote>
-<p><a href="http://div.io/topic/854" target="_blank" rel="external">http://div.io/topic/854</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ</a><br><a href="https://segmentfault.com/a/1190000009569701" target="_blank" rel="external">https://segmentfault.com/a/1190000009569701</a></p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/21/truly-navigation/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeffry Yu">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://orwf5fma6.bkt.clouddn.com/Into_the_Unknown_by_kerembeyit.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不要温柔的走进那个良夜">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/21/truly-navigation/" itemprop="url">一个正确的导航栏实现方式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-21T09:32:26+08:00">
-                06.21.2017
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>不能自动隐藏的导航栏都是不合格的导航栏。</p>
-<p>为什么这么说呢，因为使用空格键或翻页键的时候，不隐藏的导航栏会始终占用页面顶上的一部分空间。导致大部分时候空格键或翻页键处于不可用状态。在键盘这么空间极度有限的情况下能分配出三个键用来改进用户的阅读体验，却被大部分开发者忽略了。</p>
-<p>在 chrome 浏览器上经试验，会留几十像素的冗余，具体多少是根据你窗口大小来的，为的是方便看到上次阅读到哪里了。</p>
-<p>为了解决这问题先看下浏览器滚动是怎么工作的。通过开发这工具发现，当一个网页超出一屏的显示范围的时候，html，body 的高度是整个内容高度，而不是窗口的高度。这样会导致我们整个网页在滚动的时候实际上是滚动的html里面所有的内容。</p>
-<p>了解了问题所在，解决起来就方便多了。下面提供三种方案：</p>
-<p>方案一：限制html的高度为整个窗口的高度。首先html 和 body 高度要是窗口的高度，不能被内容撑高。二是滚动条不能作用在 html 上面，也不能是 body 上面，而是直接滚动内容区域 。三是在内容区域添加滚动条。使用 flexbox 能很简单就实现一部分定宽／高，另外一部分自适应宽／高，看代码<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">class</span>=<span class="string">"full-height"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>truly navigation<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></div><div class="line">  * &#123;</div><div class="line">    box-sizing: border-box;</div><div class="line">  &#125;</div><div class="line">  html &#123;</div><div class="line">  &#125;</div><div class="line">  body &#123;</div><div class="line">    margin: 0;</div><div class="line">  &#125;</div><div class="line">  nav &#123;</div><div class="line">    background-color: rgba(2,2,2, .5);</div><div class="line">    color: white;</div><div class="line">    /*position: fixed;*/ /* 注意这里 */</div><div class="line">    height: 40px;</div><div class="line">    line-height: 40px;</div><div class="line">    width: 100%;</div><div class="line">    top: 0;</div><div class="line">    left: 0;</div><div class="line">    text-align: center;</div><div class="line">  &#125;</div><div class="line">  .container &#123;</div><div class="line">    overflow: auto;</div><div class="line">  &#125;</div><div class="line">  .full-height &#123;</div><div class="line">    height: 100%;</div><div class="line">  &#125;</div><div class="line">  .flex-vertical &#123;</div><div class="line">    display: flex;</div><div class="line">    flex-direction: column;</div><div class="line">  &#125;</div><div class="line">  .flex-none &#123;</div><div class="line">    flex: none;</div><div class="line">  &#125;</div><div class="line">  .flex-auto &#123;</div><div class="line">    flex: auto;</div><div class="line">  &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">class</span>=<span class="string">"full-height flex-vertical"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"flex-none"</span>&gt;</span>truly navigation<span class="tag">&lt;/<span class="name">nav</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"container flex-auto"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">article</span> <span class="attr">class</span>=<span class="string">"article"</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- content here --&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">article</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">section</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p><a href="/demo/truly_navigation_p100_height.html">demo</a></p>
-<p>方案二：自动隐藏导航栏。这种方式应该是最优雅的吧。最主要是能提供沉浸式阅读体验。下面的代码是通过判断窗口的滚动高度来实现。当然你也可以通过判断滚动方向来实现。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.addEventListener(<span class="string">"scroll"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">    handleScroll()</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleScroll</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.scrollY &gt; <span class="number">40</span>) &#123;</div><div class="line">        <span class="built_in">document</span>.getElementByTagName(<span class="string">"nav"</span>).classList.add(<span class="string">"nav-hide"</span>)</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">document</span>.getElementByTagName(<span class="string">"nav"</span>).classList.remove(<span class="string">"nav-hide"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p> <a href="/demo/truly_navigation_auto_hide.html">demo</a></p>
-<p>方案三：也是最简单的，直接让滚动条跟随窗口一起滚动。这里就不提供实现代码了。</p>
-
-          
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
@@ -744,6 +522,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -763,8 +545,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://orwf5fma6.bkt.clouddn.com/Into_the_Unknown_by_kerembeyit.jpg"
@@ -817,6 +608,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -937,10 +744,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
