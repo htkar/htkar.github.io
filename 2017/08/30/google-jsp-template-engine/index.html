@@ -99,7 +99,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/08/30/google-jsp-template-engine/index.html">
 <meta property="og:site_name" content="不要温柔的走进那个良夜">
 <meta property="og:description" content="首先说明 一下需求，有若干个 jsp 页面，想使用同一个 jsp 做 parent 然后， 每个 view 只放入 parent 的某个节点下面，比如 content。 很简单的一个需求但是至少花了我三天的时间。由于是使用的 google，所以就想把通过不断的自我提问以及根据网上人们的答案一步步缩小问题范围，修正精炼需求的过程记录下来。顺便看一下 google 是如何一步步引导自己走向新的不熟悉的">
-<meta property="og:updated_time" content="2017-08-30T08:02:42.000Z">
+<meta property="og:updated_time" content="2017-08-30T08:10:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次 js 模板引擎 Google 探索之旅">
 <meta name="twitter:description" content="首先说明 一下需求，有若干个 jsp 页面，想使用同一个 jsp 做 parent 然后， 每个 view 只放入 parent 的某个节点下面，比如 content。 很简单的一个需求但是至少花了我三天的时间。由于是使用的 google，所以就想把通过不断的自我提问以及根据网上人们的答案一步步缩小问题范围，修正精炼需求的过程记录下来。顺便看一下 google 是如何一步步引导自己走向新的不熟悉的">
@@ -369,9 +369,7 @@
 <p>不错的结果</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@Bean</div><div class="line">public InternalResourceViewResolver setupViewResolver() &#123;</div><div class="line">    InternalResourceViewResolver resolver =  new InternalResourceViewResolver();</div><div class="line">    resolver.setPrefix ("/ui/jsp/");</div><div class="line">    resolver.setSuffix (".jsp");</div><div class="line">    resolver.setViewClass ('''java);</div><div class="line">    return resolver;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>顺便还搞清楚了</p>
-</blockquote>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jstl<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
-<blockquote>
 <p>Embedded Tomcat core package has no JSP rendering support.</p>
 </blockquote>
 <p>14，google “spring view life cycle”</p>
