@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="http cache,http," />
+  <meta name="keywords" content="user friendly,History API," />
 
 
 
@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="from disk cachefrom memory cache  强校验器与弱校验器。ETags，作为缓存的一种强校验器。Last-Modified 响应头可以作为一种弱校验器。 如果没有包含校验器，并且缓存没有过期。就会有200 (from disk cache / from memory cache)情况，这样浏览可以更快的获取到资源，没有网络开销。 如果有校验器，就始终有网路开销。在缓存">
-<meta name="keywords" content="http cache,http">
+<meta name="description" content="不知道大家发现没有，一旦一个页面可以滚动加载，并且进入详细页面，再点击浏览器的返回按钮，返回的页面往往让我们非常抓狂。如果前一个 list 页面停留在滚动加载出来的内容上面。当浏览器返回的时候会再次加载之前加载过的内容。并且滚动到之前离开的地方。这样不仅会造成等待，还会造成网络开销和页面跳动，而且往往不是精确的滚动之前离开的地方。尤其是这一点不能滚动到之前离开的地方，这种混乱的感觉很让人抓狂。 但">
+<meta name="keywords" content="user friendly,History API">
 <meta property="og:type" content="article">
-<meta property="og:title" content="200 (from cache) vs 304">
-<meta property="og:url" content="http://yoursite.com/2017/07/04/http-cache/index.html">
+<meta property="og:title" content="用户体验良好的页面返回">
+<meta property="og:url" content="http://yoursite.com/2017/08/30/friendly_browser_back/index.html">
 <meta property="og:site_name" content="不要温柔的走进那个良夜">
-<meta property="og:description" content="from disk cachefrom memory cache  强校验器与弱校验器。ETags，作为缓存的一种强校验器。Last-Modified 响应头可以作为一种弱校验器。 如果没有包含校验器，并且缓存没有过期。就会有200 (from disk cache / from memory cache)情况，这样浏览可以更快的获取到资源，没有网络开销。 如果有校验器，就始终有网路开销。在缓存">
-<meta property="og:updated_time" content="2017-08-31T02:24:06.000Z">
+<meta property="og:description" content="不知道大家发现没有，一旦一个页面可以滚动加载，并且进入详细页面，再点击浏览器的返回按钮，返回的页面往往让我们非常抓狂。如果前一个 list 页面停留在滚动加载出来的内容上面。当浏览器返回的时候会再次加载之前加载过的内容。并且滚动到之前离开的地方。这样不仅会造成等待，还会造成网络开销和页面跳动，而且往往不是精确的滚动之前离开的地方。尤其是这一点不能滚动到之前离开的地方，这种混乱的感觉很让人抓狂。 但">
+<meta property="og:updated_time" content="2017-08-31T03:16:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="200 (from cache) vs 304">
-<meta name="twitter:description" content="from disk cachefrom memory cache  强校验器与弱校验器。ETags，作为缓存的一种强校验器。Last-Modified 响应头可以作为一种弱校验器。 如果没有包含校验器，并且缓存没有过期。就会有200 (from disk cache / from memory cache)情况，这样浏览可以更快的获取到资源，没有网络开销。 如果有校验器，就始终有网路开销。在缓存">
+<meta name="twitter:title" content="用户体验良好的页面返回">
+<meta name="twitter:description" content="不知道大家发现没有，一旦一个页面可以滚动加载，并且进入详细页面，再点击浏览器的返回按钮，返回的页面往往让我们非常抓狂。如果前一个 list 页面停留在滚动加载出来的内容上面。当浏览器返回的时候会再次加载之前加载过的内容。并且滚动到之前离开的地方。这样不仅会造成等待，还会造成网络开销和页面跳动，而且往往不是精确的滚动之前离开的地方。尤其是这一点不能滚动到之前离开的地方，这种混乱的感觉很让人抓狂。 但">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/04/http-cache/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/30/friendly_browser_back/"/>
 
 
 
 
 
-  <title>200 (from cache) vs 304 | 不要温柔的走进那个良夜</title>
+  <title>用户体验良好的页面返回 | 不要温柔的走进那个良夜</title>
   
 
 
@@ -256,7 +256,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/04/http-cache/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/30/friendly_browser_back/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeffry Yu">
@@ -273,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">200 (from cache) vs 304</h1>
+          <h1 class="post-title" itemprop="name headline">用户体验良好的页面返回</h1>
         
 
         <div class="post-meta">
@@ -285,8 +285,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-04T09:56:18+08:00">
-                07.04.2017
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-30T19:30:11+08:00">
+                08.30.2017
               </time>
             
 
@@ -320,18 +320,21 @@
       
 
       
-        <blockquote>
-<p>from disk cache<br>from memory cache</p>
+        <p>不知道大家发现没有，一旦一个页面可以滚动加载，并且进入详细页面，再点击浏览器的返回按钮，返回的页面往往让我们非常抓狂。如果前一个 list 页面停留在滚动加载出来的内容上面。当浏览器返回的时候会再次加载之前加载过的内容。并且滚动到之前离开的地方。这样不仅会造成等待，还会造成网络开销和页面跳动，而且往往不是精确的滚动之前离开的地方。尤其是这一点不能滚动到之前离开的地方，这种混乱的感觉很让人抓狂。</p>
+<p>但是 HTML5 的 History API 就给我们提供了很好的解决方案。</p>
+<h2 id="History-API-是怎么工作的"><a href="#History-API-是怎么工作的" class="headerlink" title="History API 是怎么工作的"></a>History API 是怎么工作的</h2><h3 id="History-API"><a href="#History-API" class="headerlink" title="History API"></a>History API</h3><p>在全局对象 window 下面有个 history 属性，它是 <a href="https://html.spec.whatwg.org/multipage/history.html#the-history-interface" target="_blank" rel="external">History interface</a> 的实例，有5个主要的方法go(), back(), forward(), pushState(), repleaceState()。 其中 go() 接收一个 int 类型的参数，负数代表后退，正数代表前进。</p>
+<p>pushState(), repleaceState() 这两个方法将是实现浏览器后退不重新网络加载的主要手段。pushState(), repleaceState() 接受的参数都一样，(data, title[, url]) 总共三个参数，其中 url 是可选的，data 可以是任何类型的 javascript 对象， title 就是页面的title。</p>
+<p>一旦进入一个新的页面，浏览器就会产生一条新的浏览记录，那么就要使用 pushState() 向 history 里面增加一条记录。如果只是在当前页面更新内容，而不是进入一个新的页面，比如滚动加载，这时候就要使用 repleaceState() 更新当前 history 对象。</p>
+<p>什么样的内容适合存进 history 对象里面呢？一般是 ajax 请求的内容。可以是 json 数据，也可以是 HTML 片段，但是不能是整个页面，这样会刷新我们整个 js 执行环境，其中最主要的 window 的 popstate 事件在页面返回的时候将得不到触发。这里需要注意，popstate 事件将是接下来实现无刷新返回的关键。</p>
+<h3 id="popstate"><a href="#popstate" class="headerlink" title="popstate"></a>popstate</h3><blockquote>
+<p>Note that just calling history.pushState() or history.replaceState() won’t trigger a popstate event. The popstate event will be triggered by doing a browser action such as a click on the back or forward button (or calling history.back() or history.forward() in JavaScript).</p>
 </blockquote>
-<h3 id="强校验器与弱校验器。"><a href="#强校验器与弱校验器。" class="headerlink" title="强校验器与弱校验器。"></a>强校验器与弱校验器。</h3><p>ETags，作为缓存的一种强校验器。<br>Last-Modified 响应头可以作为一种弱校验器。</p>
-<p>如果没有包含校验器，并且缓存没有过期。就会有200 (from disk cache / from memory cache)情况，这样浏览可以更快的获取到资源，没有网络开销。</p>
-<p>如果有校验器，<br>就始终有网路开销。在缓存没有失效的情况下服务器会返回 304.</p>
-<h3 id="使用情况"><a href="#使用情况" class="headerlink" title="使用情况"></a>使用情况</h3><p>在改动不频繁的情况下可以不使用校验器。像博客系统的 js，css 资源。图片</p>
-<p>在改动较频繁的情况下，根据情况使用强弱校验器。或者在 url 后面加入版本号，不使用校验器。</p>
-<h3 id="缓存判断寻找顺序"><a href="#缓存判断寻找顺序" class="headerlink" title="缓存判断寻找顺序"></a>缓存判断寻找顺序</h3><p>Cache-control: max-age=N =》 Expires: <date> =》Last-Modified: <date></date></date></p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><blockquote>
-<p><a href="http://div.io/topic/854" target="_blank" rel="external">http://div.io/topic/854</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ</a><br><a href="https://segmentfault.com/a/1190000009569701" target="_blank" rel="external">https://segmentfault.com/a/1190000009569701</a></p>
-</blockquote>
+<p>在监听函数的参数将会得到 <a href="https://developer.mozilla.org/zh-CN/docs/Web/Events/popstate" target="_blank" rel="external">PopStateEvent</a> 对象，包含一个重要的属性 state，如果当前的历史记录是通过pushState() 或者 repleaceState() 创建的，并且传入了 data，那么这个 state 将是传入 data 的一份 copy。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>接下来我们可以想象一下，如何通过 History API 来实现浏览器后退不重新网络加载。</p>
+<p>首先进入一个列表类型的页面，比如微博的时间线。这时候通过 replaceState() 来更新当前的浏览记录，假设加载的是第一页，这时候 replaceState 的 data 参数就是第一页的 json；继续滚动页面到最下面触发自动加载，这时候加载的是第二页，继续通过 replaceState  更新，传入的 data 参数将是第一页和第二页合并之后的 json。假如发现第二页里面有条微博我们比较感兴趣，点击这条微博进入单条微博的详情页。等等，在进入微博详情页的时候，需要记录下当前滚动高度。然后才是发送一个 ajax 请求去获取详情页面的 json 数据，然后将详情页面的 json 数据传入 pushState() 中，来添加一条新的浏览记录。</p>
+<p>接下渲染详情页面。当浏览完详情页面我们想返回之前的 list 页面，通过点击浏览器的返回按钮，这时候触发 popstate 事件，再通过监听函数获取到了之前页面的 json。接下来就很简单了，只需要渲染刚才得到的 json数据，再还原我们离开 list 页面保存的滚动高度。一切就会到了我们刚才离开的时候，仿佛从来都没离开过。</p>
+<p>这里有个 <a href="http://html5doctor.com/demos/history/" target="_blank" rel="external">demo</a> 你们可以玩玩。</p>
+<p>好像是不是实现一个单页面应用，如果 ajax 请求的是 HTML 片段，这样不就是 server render 吗？如果你刚好用的是 jsp 参考我之前写的 <a href="https://htkar.github.io/2017/08/30/google-jsp-template-engine/" target="_blank" rel="external">记一次 jsp 模板引擎 Google 探索之旅</a> 就什么模板引擎都不需要了。</p>
 
       
     </div>
@@ -361,9 +364,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/http-cache/" rel="tag"># http cache</a>
+            <a href="/tags/user-friendly/" rel="tag"># user friendly</a>
           
-            <a href="/tags/http/" rel="tag"># http</a>
+            <a href="/tags/History-API/" rel="tag"># History API</a>
           
         </div>
       
@@ -376,8 +379,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/21/truly-navigation/" rel="next" title="一个正确的导航栏实现方式">
-                <i class="fa fa-chevron-left"></i> 一个正确的导航栏实现方式
+              <a href="/2017/08/30/google-jsp-template-engine/" rel="next" title="记一次 jsp 模板引擎 Google 探索之旅">
+                <i class="fa fa-chevron-left"></i> 记一次 jsp 模板引擎 Google 探索之旅
               </a>
             
           </div>
@@ -385,10 +388,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/30/google-jsp-template-engine/" rel="prev" title="记一次 jsp 模板引擎 Google 探索之旅">
-                记一次 jsp 模板引擎 Google 探索之旅 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -508,7 +507,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#强校验器与弱校验器。"><span class="nav-number">1.</span> <span class="nav-text">强校验器与弱校验器。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用情况"><span class="nav-number">2.</span> <span class="nav-text">使用情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存判断寻找顺序"><span class="nav-number">3.</span> <span class="nav-text">缓存判断寻找顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#History-API-是怎么工作的"><span class="nav-number">1.</span> <span class="nav-text">History API 是怎么工作的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#History-API"><span class="nav-number">1.1.</span> <span class="nav-text">History API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#popstate"><span class="nav-number">1.2.</span> <span class="nav-text">popstate</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a></li></ol></div>
             
 
           </div>

@@ -253,6 +253,132 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/30/friendly_browser_back/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeffry Yu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://orwf5fma6.bkt.clouddn.com/Into_the_Unknown_by_kerembeyit.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不要温柔的走进那个良夜">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/30/friendly_browser_back/" itemprop="url">用户体验良好的页面返回</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-30T19:30:11+08:00">
+                08.30.2017
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>不知道大家发现没有，一旦一个页面可以滚动加载，并且进入详细页面，再点击浏览器的返回按钮，返回的页面往往让我们非常抓狂。如果前一个 list 页面停留在滚动加载出来的内容上面。当浏览器返回的时候会再次加载之前加载过的内容。并且滚动到之前离开的地方。这样不仅会造成等待，还会造成网络开销和页面跳动，而且往往不是精确的滚动之前离开的地方。尤其是这一点不能滚动到之前离开的地方，这种混乱的感觉很让人抓狂。</p>
+<p>但是 HTML5 的 History API 就给我们提供了很好的解决方案。</p>
+<h2 id="History-API-是怎么工作的"><a href="#History-API-是怎么工作的" class="headerlink" title="History API 是怎么工作的"></a>History API 是怎么工作的</h2><h3 id="History-API"><a href="#History-API" class="headerlink" title="History API"></a>History API</h3><p>在全局对象 window 下面有个 history 属性，它是 <a href="https://html.spec.whatwg.org/multipage/history.html#the-history-interface" target="_blank" rel="external">History interface</a> 的实例，有5个主要的方法go(), back(), forward(), pushState(), repleaceState()。 其中 go() 接收一个 int 类型的参数，负数代表后退，正数代表前进。</p>
+<p>pushState(), repleaceState() 这两个方法将是实现浏览器后退不重新网络加载的主要手段。pushState(), repleaceState() 接受的参数都一样，(data, title[, url]) 总共三个参数，其中 url 是可选的，data 可以是任何类型的 javascript 对象， title 就是页面的title。</p>
+<p>一旦进入一个新的页面，浏览器就会产生一条新的浏览记录，那么就要使用 pushState() 向 history 里面增加一条记录。如果只是在当前页面更新内容，而不是进入一个新的页面，比如滚动加载，这时候就要使用 repleaceState() 更新当前 history 对象。</p>
+<p>什么样的内容适合存进 history 对象里面呢？一般是 ajax 请求的内容。可以是 json 数据，也可以是 HTML 片段，但是不能是整个页面，这样会刷新我们整个 js 执行环境，其中最主要的 window 的 popstate 事件在页面返回的时候将得不到触发。这里需要注意，popstate 事件将是接下来实现无刷新返回的关键。</p>
+<h3 id="popstate"><a href="#popstate" class="headerlink" title="popstate"></a>popstate</h3><blockquote>
+<p>Note that just calling history.pushState() or history.replaceState() won’t trigger a popstate event. The popstate event will be triggered by doing a browser action such as a click on the back or forward button (or calling history.back() or history.forward() in JavaScript).</p>
+</blockquote>
+<p>在监听函数的参数将会得到 <a href="https://developer.mozilla.org/zh-CN/docs/Web/Events/popstate" target="_blank" rel="external">PopStateEvent</a> 对象，包含一个重要的属性 state，如果当前的历史记录是通过pushState() 或者 repleaceState() 创建的，并且传入了 data，那么这个 state 将是传入 data 的一份 copy。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>接下来我们可以想象一下，如何通过 History API 来实现浏览器后退不重新网络加载。</p>
+<p>首先进入一个列表类型的页面，比如微博的时间线。这时候通过 replaceState() 来更新当前的浏览记录，假设加载的是第一页，这时候 replaceState 的 data 参数就是第一页的 json；继续滚动页面到最下面触发自动加载，这时候加载的是第二页，继续通过 replaceState  更新，传入的 data 参数将是第一页和第二页合并之后的 json。假如发现第二页里面有条微博我们比较感兴趣，点击这条微博进入单条微博的详情页。等等，在进入微博详情页的时候，需要记录下当前滚动高度。然后才是发送一个 ajax 请求去获取详情页面的 json 数据，然后将详情页面的 json 数据传入 pushState() 中，来添加一条新的浏览记录。</p>
+<p>接下渲染详情页面。当浏览完详情页面我们想返回之前的 list 页面，通过点击浏览器的返回按钮，这时候触发 popstate 事件，再通过监听函数获取到了之前页面的 json。接下来就很简单了，只需要渲染刚才得到的 json数据，再还原我们离开 list 页面保存的滚动高度。一切就会到了我们刚才离开的时候，仿佛从来都没离开过。</p>
+<p>这里有个 <a href="http://html5doctor.com/demos/history/" target="_blank" rel="external">demo</a> 你们可以玩玩。</p>
+<p>好像是不是实现一个单页面应用，如果 ajax 请求的是 HTML 片段，这样不就是 server render 吗？如果你刚好用的是 jsp 参考我之前写的 <a href="https://htkar.github.io/2017/08/30/google-jsp-template-engine/" target="_blank" rel="external">记一次 jsp 模板引擎 Google 探索之旅</a> 就什么模板引擎都不需要了。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/30/google-jsp-template-engine/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -447,12 +573,12 @@
 <p>猜想可能就是写法的问题。结合上面提到的，需要自定义一个 annotation 并且放到 <code>@RequestMapping</code> 的上面。</p>
 <p>一试果然正常了。亲哥，你是我的亲哥啊。等等……上面好像没有提到位置的问题啊。并且没有 top bottom 关键字啊。唉！不管了。反正成功了。</p>
 </blockquote>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">View resolvedView = viewResolver.resolveViewName(<span class="string">"lrcpage"</span>, Locale.US);</div><div class="line">MockHttpServletResponse mockResp = <span class="keyword">new</span> MockHttpServletResponse();</div><div class="line">resolvedView.render(modelMap, req, mockResp);</div><div class="line"></div><div class="line">ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView(<span class="string">"global"</span>, <span class="string">"content"</span>, mockResp.getContentAsString());</div><div class="line"><span class="keyword">return</span> modelAndView;</div></pre></td></tr></table></figure>
-<p>或者</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>从一开始得到一个能用的结果。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">View resolvedView = viewResolver.resolveViewName(<span class="string">"lrcpage"</span>, Locale.US);</div><div class="line">MockHttpServletResponse mockResp = <span class="keyword">new</span> MockHttpServletResponse();</div><div class="line">resolvedView.render(modelMap, req, mockResp);</div><div class="line"></div><div class="line">ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView(<span class="string">"global"</span>, <span class="string">"content"</span>, mockResp.getContentAsString());</div><div class="line"><span class="keyword">return</span> modelAndView;</div></pre></td></tr></table></figure></p>
+<p>到</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">modelMap.addAttribute(<span class="string">"template"</span>, <span class="string">"lrcpage"</span>);</div><div class="line"><span class="keyword">return</span> <span class="string">"global"</span>;</div></pre></td></tr></table></figure>
-<p>改成我们熟悉的写法</p>
+<p>最终到我们熟悉的写法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> <span class="string">"lrcpage"</span>;</div></pre></td></tr></table></figure>
-<p>进行以上的调研。</p>
+<p>为了找到一个最优美的解决方案，经过不懈的努力，终于如愿以偿。</p>
 
           
         
@@ -776,7 +902,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -788,10 +914,10 @@
             
             
             <div class="site-state-item site-state-tags">
-              
-                <span class="site-state-item-count">5</span>
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">tags</span>
-              
+              </a>
             </div>
           
 
