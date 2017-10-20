@@ -253,6 +253,131 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/20/handle-js-exception/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeffry Yu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://orwf5fma6.bkt.clouddn.com/Into_the_Unknown_by_kerembeyit.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不要温柔的走进那个良夜">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/20/handle-js-exception/" itemprop="url">处理 JS 中的异常</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-20T16:04:31+08:00">
+                10.20.2017
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>前端异常处理的思路是在执行的入口处 try catch，以此来减少由致命错误导致的程序崩溃，错误上报等。</p>
+<p>这样的话我们需要知道 js 程序的执行入口。一是正常的执行流程，二是异步回调函数。在 js 中正常的执行流程比较少也比较好处理。但是回调函数随处可见。所以以下着重写一下我是怎么处理在回调函数中的异常。</p>
+<p>回调函数又分为事件的回调函数和网络请求的回调函数。</p>
+<p>其中网络请求的回调函数比较好处理，每个请求都调用同一个方法。比如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getJson</span>(<span class="params">url, successCallback, failCallback</span>) </span>&#123;</div><div class="line">    mask();</div><div class="line">    $.ajax(&#123;</div><div class="line">        <span class="attr">url</span>: url,</div><div class="line">        <span class="attr">method</span>: <span class="string">"GET"</span>,</div><div class="line">        <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="keyword">if</span> (data.success) &#123;</div><div class="line">                      successCallback(data.data);</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                     failCallback(data.message)</div><div class="line">                     <span class="built_in">console</span>.warn(data.message)</div><div class="line">                &#125;</div><div class="line">            &#125; <span class="keyword">catch</span>(e) &#123;</div><div class="line">                <span class="built_in">console</span>.error(e)</div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">error</span>: <span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                failCallback(data.message)</div><div class="line">                <span class="built_in">console</span>.warn(data.message)</div><div class="line">            &#125; <span class="keyword">catch</span> (e) &#123;</div><div class="line">                <span class="built_in">console</span>.error(e)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果你是用 fetch API 那么一个 catch() 方法就可以搞定上面至少需要两个 catch() 方法才能搞定的异常。</p>
+<p>事件的回调函数比较难处理，DOM 的事件散布在各处，没有一个统一的点收集这些事件。这怎么处理呢比较头疼。<br>一，可以在 DOM 加载完的时候改写<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> originalEvent  = dom.onclick;</div><div class="line">dom.onclick = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        originalEvent(e)</div><div class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</div><div class="line">        <span class="built_in">console</span>.error(e)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>二，但是如果你是通过 addEventListener() 来添加监听函数，那么最好不是直接使用 addEventListener()，而是自己创建一个方法封装一下。比如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bind</span>(<span class="params">node, event_name, handler, useCapture</span>) </span>&#123;</div><div class="line">    node.addEventListener(event_name, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            handler.call(node, e)</div><div class="line">        &#125; <span class="keyword">catch</span> (e) &#123;</div><div class="line">            <span class="built_in">console</span>.error(e)</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果你是使用 React，那么事件监听函数直接用下面代码即可：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> ReactErrorUtils <span class="keyword">from</span> <span class="string">'react-dom/lib/ReactErrorUtils'</span></div><div class="line"></div><div class="line">ReactErrorUtils.invokeGuardedCallback = <span class="function"><span class="keyword">function</span> (<span class="params">name, func, a</span>) </span>&#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">      func(a);</div><div class="line">    &#125; <span class="keyword">catch</span> (x) &#123;</div><div class="line">      <span class="comment">// do somethin</span></div><div class="line">      <span class="built_in">console</span>.error(x)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><a href="https://stackoverflow.com/questions/1421257/intercept-javascript-event" target="_blank" rel="external">https://stackoverflow.com/questions/1421257/intercept-javascript-event</a><br><a href="https://reactjs.org/docs/events.html" target="_blank" rel="external">https://reactjs.org/docs/events.html</a>  (SyntheticEvent)</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/30/friendly_browser_back/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -902,7 +1027,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -915,7 +1040,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
