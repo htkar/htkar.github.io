@@ -253,6 +253,125 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/28/react-performance-optimization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeffry Yu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://orwf5fma6.bkt.clouddn.com/Into_the_Unknown_by_kerembeyit.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不要温柔的走进那个良夜">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/28/react-performance-optimization/" itemprop="url">React 性能优化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-28T14:30:01+08:00">
+                10.28.2017
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          虽然说使用 React 已经可以得到很好的性能了，但是还是会有一些使用方法的不对会导致 React 应用的性能下降。官方文档也有一篇文章专门介绍如何优化性能，「Avoid Reconciliation」这一节我觉得值得一看。
+下面我要说的也是围绕「Avoid Reconciliation」这一节的内容来进行展开。首先「Reconciliation」是什么意思呢，我理解的是需要调用组件的 render() 方法进行重新渲染，用生成新的虚拟 DOM 与老的虚拟 DOM 对比，以此来决定是否需要更新 DOM。React 在重新渲染之前会去判断 shouldComponentUpdate() 函数返回
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/10/28/react-performance-optimization/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/20/handle-js-exception/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -321,22 +440,19 @@
       
         
           
-            <p>前端异常处理的思路是在执行的入口处 try catch，以此来减少由致命错误导致的程序崩溃，错误上报等。</p>
-<p>这样的话我们需要知道 js 程序的执行入口。一是正常的执行流程，二是异步回调函数。在 js 中正常的执行流程比较少也比较好处理。但是回调函数随处可见。所以以下着重写一下我是怎么处理在回调函数中的异常。</p>
-<p>回调函数又分为事件的回调函数和网络请求的回调函数。</p>
-<p>其中网络请求的回调函数比较好处理，每个请求都调用同一个方法。比如：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getJson</span>(<span class="params">url, successCallback, failCallback</span>) </span>&#123;</div><div class="line">    mask();</div><div class="line">    $.ajax(&#123;</div><div class="line">        <span class="attr">url</span>: url,</div><div class="line">        <span class="attr">method</span>: <span class="string">"GET"</span>,</div><div class="line">        <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="keyword">if</span> (data.success) &#123;</div><div class="line">                      successCallback(data.data);</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                     failCallback(data.message)</div><div class="line">                     <span class="built_in">console</span>.warn(data.message)</div><div class="line">                &#125;</div><div class="line">            &#125; <span class="keyword">catch</span>(e) &#123;</div><div class="line">                <span class="built_in">console</span>.error(e)</div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">error</span>: <span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                failCallback(data.message)</div><div class="line">                <span class="built_in">console</span>.warn(data.message)</div><div class="line">            &#125; <span class="keyword">catch</span> (e) &#123;</div><div class="line">                <span class="built_in">console</span>.error(e)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>如果你是用 fetch API 那么一个 catch() 方法就可以搞定上面至少需要两个 catch() 方法才能搞定的异常。</p>
-<p>事件的回调函数比较难处理，DOM 的事件散布在各处，没有一个统一的点收集这些事件。这怎么处理呢比较头疼。<br>一，可以在 DOM 加载完的时候改写<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> originalEvent  = dom.onclick;</div><div class="line">dom.onclick = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        originalEvent(e)</div><div class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</div><div class="line">        <span class="built_in">console</span>.error(e)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>二，但是如果你是通过 addEventListener() 来添加监听函数，那么最好不是直接使用 addEventListener()，而是自己创建一个方法封装一下。比如：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">bind</span>(<span class="params">node, event_name, handler, useCapture</span>) </span>&#123;</div><div class="line">    node.addEventListener(event_name, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            handler.call(node, e)</div><div class="line">        &#125; <span class="keyword">catch</span> (e) &#123;</div><div class="line">            <span class="built_in">console</span>.error(e)</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>如果你是使用 React，那么事件监听函数直接用下面代码即可：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> ReactErrorUtils <span class="keyword">from</span> <span class="string">'react-dom/lib/ReactErrorUtils'</span></div><div class="line"></div><div class="line">ReactErrorUtils.invokeGuardedCallback = <span class="function"><span class="keyword">function</span> (<span class="params">name, func, a</span>) </span>&#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">      func(a);</div><div class="line">    &#125; <span class="keyword">catch</span> (x) &#123;</div><div class="line">      <span class="comment">// do somethin</span></div><div class="line">      <span class="built_in">console</span>.error(x)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
-<p><a href="https://stackoverflow.com/questions/1421257/intercept-javascript-event" target="_blank" rel="external">https://stackoverflow.com/questions/1421257/intercept-javascript-event</a><br><a href="https://reactjs.org/docs/events.html" target="_blank" rel="external">https://reactjs.org/docs/events.html</a>  (SyntheticEvent)</p>
-</blockquote>
-
-          
+          前端异常处理的思路是在执行的入口处 try catch，以此来减少由致命错误导致的程序崩溃，错误上报等。
+这样的话我们需要知道 js 程序的执行入口。一是正常的执行流程，二是异步回调函数。在 js 中正常的执行流程比较少也比较好处理。但是回调函数随处可见。所以以下着重写一下我是怎么处理在回调函数中的异常。
+回调函数又分为事件的回调函数和网络请求的回调函数。
+其中网络请求的回调函数比较好处理，每个请求都调用同一个方法。比如：
+123456789101112131415161718192021222324252627function getJson(url, successCallback, fa
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/10/20/handle-js-exception/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -446,23 +562,17 @@
       
         
           
-            <p>不知道大家发现没有，一旦一个页面可以滚动加载，并且进入详细页面，再点击浏览器的返回按钮，返回的页面往往让我们非常抓狂。如果前一个 list 页面停留在滚动加载出来的内容上面。当浏览器返回的时候会再次加载之前加载过的内容。并且滚动到之前离开的地方。这样不仅会造成等待，还会造成网络开销和页面跳动，而且往往不是精确的滚动之前离开的地方。尤其是这一点不能滚动到之前离开的地方，这种混乱的感觉很让人抓狂。</p>
-<p>但是 HTML5 的 History API 就给我们提供了很好的解决方案。</p>
-<h2 id="History-API-是怎么工作的"><a href="#History-API-是怎么工作的" class="headerlink" title="History API 是怎么工作的"></a>History API 是怎么工作的</h2><h3 id="History-API"><a href="#History-API" class="headerlink" title="History API"></a>History API</h3><p>在全局对象 window 下面有个 history 属性，它是 <a href="https://html.spec.whatwg.org/multipage/history.html#the-history-interface" target="_blank" rel="external">History interface</a> 的实例，有5个主要的方法go(), back(), forward(), pushState(), repleaceState()。 其中 go() 接收一个 int 类型的参数，负数代表后退，正数代表前进。</p>
-<p>pushState(), repleaceState() 这两个方法将是实现浏览器后退不重新网络加载的主要手段。pushState(), repleaceState() 接受的参数都一样，(data, title[, url]) 总共三个参数，其中 url 是可选的，data 可以是任何类型的 javascript 对象， title 就是页面的title。</p>
-<p>一旦进入一个新的页面，浏览器就会产生一条新的浏览记录，那么就要使用 pushState() 向 history 里面增加一条记录。如果只是在当前页面更新内容，而不是进入一个新的页面，比如滚动加载，这时候就要使用 repleaceState() 更新当前 history 对象。</p>
-<p>什么样的内容适合存进 history 对象里面呢？一般是 ajax 请求的内容。可以是 json 数据，也可以是 HTML 片段，但是不能是整个页面，这样会刷新我们整个 js 执行环境，其中最主要的 window 的 popstate 事件在页面返回的时候将得不到触发。这里需要注意，popstate 事件将是接下来实现无刷新返回的关键。</p>
-<h3 id="popstate"><a href="#popstate" class="headerlink" title="popstate"></a>popstate</h3><blockquote>
-<p>Note that just calling history.pushState() or history.replaceState() won’t trigger a popstate event. The popstate event will be triggered by doing a browser action such as a click on the back or forward button (or calling history.back() or history.forward() in JavaScript).</p>
-</blockquote>
-<p>在监听函数的参数将会得到 <a href="https://developer.mozilla.org/zh-CN/docs/Web/Events/popstate" target="_blank" rel="external">PopStateEvent</a> 对象，包含一个重要的属性 state，如果当前的历史记录是通过pushState() 或者 repleaceState() 创建的，并且传入了 data，那么这个 state 将是传入 data 的一份 copy。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>接下来我们可以想象一下，如何通过 History API 来实现浏览器后退不重新网络加载。</p>
-<p>首先进入一个列表类型的页面，比如微博的时间线。这时候通过 replaceState() 来更新当前的浏览记录，假设加载的是第一页，这时候 replaceState 的 data 参数就是第一页的 json；继续滚动页面到最下面触发自动加载，这时候加载的是第二页，继续通过 replaceState  更新，传入的 data 参数将是第一页和第二页合并之后的 json。假如发现第二页里面有条微博我们比较感兴趣，点击这条微博进入单条微博的详情页。等等，在进入微博详情页的时候，需要记录下当前滚动高度。然后才是发送一个 ajax 请求去获取详情页面的 json 数据，然后将详情页面的 json 数据传入 pushState() 中，来添加一条新的浏览记录。</p>
-<p>接下渲染详情页面。当浏览完详情页面我们想返回之前的 list 页面，通过点击浏览器的返回按钮，这时候触发 popstate 事件，再通过监听函数获取到了之前页面的 json。接下来就很简单了，只需要渲染刚才得到的 json数据，再还原我们离开 list 页面保存的滚动高度。一切就会到了我们刚才离开的时候，仿佛从来都没离开过。</p>
-<p>这里有个 <a href="http://html5doctor.com/demos/history/" target="_blank" rel="external">demo</a> 你们可以玩玩。</p>
-<p>好像是不是实现一个单页面应用，如果 ajax 请求的是 HTML 片段，这样不就是 server render 吗？如果你刚好用的是 jsp 参考我之前写的 <a href="https://htkar.github.io/2017/08/30/google-jsp-template-engine/" target="_blank" rel="external">记一次 jsp 模板引擎 Google 探索之旅</a> 就什么模板引擎都不需要了。</p>
-
-          
+          不知道大家发现没有，一旦一个页面可以滚动加载，并且进入详细页面，再点击浏览器的返回按钮，返回的页面往往让我们非常抓狂。如果前一个 list 页面停留在滚动加载出来的内容上面。当浏览器返回的时候会再次加载之前加载过的内容。并且滚动到之前离开的地方。这样不仅会造成等待，还会造成网络开销和页面跳动，而且往往不是精确的滚动之前离开的地方。尤其是这一点不能滚动到之前离开的地方，这种混乱的感觉很让人抓狂。
+但是 HTML5 的 History API 就给我们提供了很好的解决方案。
+History API 是怎么工作的History API在全局对象 window 下面有个 history 属性，它是 H
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/30/friendly_browser_back/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -572,140 +682,18 @@
       
         
           
-            <p>首先说明 一下需求，有若干个 jsp 页面，想使用同一个 jsp 做 parent 然后， 每个 view 只放入 parent 的某个节点下面，比如 content。</p>
-<p>很简单的一个需求但是至少花了我三天的时间。由于是使用的 google，所以就想把通过不断的自我提问以及根据网上人们的答案一步步缩小问题范围，修正精炼需求的过程记录下来。顺便看一下 google 是如何一步步引导自己走向新的不熟悉的领域。再看一下自己是如何一步步步入歧途，以及如何迷途知返的。</p>
-<p>知道需求我们就开始去寻找解决方案吧。因为我用的是 spring mvc，所以先看看官方有没有解决方案吧。</p>
-<p>1， google “spring mvc view adapter”,</p>
-<blockquote>
-<p>第一个结果就是 <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html" target="_blank" rel="external">22. Web MVC framework - Spring</a> spring mvc的官方文档，看了当没看，不够既然是官方文档那也是要看一下的，</p>
-</blockquote>
-<p>2， 更改搜索关键词 “spring mvc”</p>
-<blockquote>
-<p>看了 <a href="https://spring.io/guides/gs/serving-web-content/" target="_blank" rel="external">Getting Started · Serving Web Content with Spring MVC</a></p>
-<p>又看到了第一步的搜索结果，还是点进去，还是一样，还是看下吧，</p>
-<p>说是让看下 <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/html/view.html" target="_blank" rel="external">Chapter 23, View technologies</a> 看下吧又不少块肉。</p>
-</blockquote>
-<p>3，google “sprint mvc set up global template”</p>
-<p>4，google “sprint mvc set up common parent template”</p>
-<blockquote>
-<p><a href="https://stackoverflow.com/questions/36782251/spring-mvc-parent-template-model-component" target="_blank" rel="external">java - Spring MVC parent template model component - Stack Overflow</a> 没啥用</p>
-</blockquote>
-<p>5，没头绪还是看下官方文档吧。我去，没目录，这么多内容不方便寻找目标，下个 “html5 ouliner”，顺便下个 pdf <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/pdf/spring-framework-reference.pdf" target="_blank" rel="external">http://docs.spring.io/spring/docs/current/spring-framework-reference/pdf/spring-framework-reference.pdf</a></p>
-<p>6，google “spring mvc combine two template”</p>
-<p>7，继续 google “spring mvc merge two template”</p>
-<blockquote>
-<p>终于有点好结果了 <a href="https://stackoverflow.com/questions/16913081/spring-how-to-merge-an-external-html-page-with-generated-content" target="_blank" rel="external">java - Spring how to merge an external html page with generated …</a>， 有人回答用到了 filter 好消息</p>
-</blockquote>
-<p>8，乘胜追击 google “spring merge two template”</p>
-<blockquote>
-<p>然而没有更多信息了。</p>
-</blockquote>
-<p>9，继续看下 google “spring view digram” 自动帮我更正成了 “spring view diagram”</p>
-<blockquote>
-<p>这张<a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgLpqO1EuYqQXr68ZyEjSaY-GPThnOXT7KYJIvgQvP-ONmxoxG" target="_blank" rel="external">图片</a>不错，表明了 spring mvc 的处理流程。</p>
-</blockquote>
-<p>10，google “spring merge view template”</p>
-<p>11，google “spring view template proxy”</p>
-<blockquote>
-<p>没有好的结果</p>
-</blockquote>
-<p>12，google “spring view template delegate”</p>
-<blockquote>
-<p>哟不错出现了两个好的结果</p>
-<p>“<a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=5&amp;cad=rja&amp;uact=8&amp;ved=0ahUKEwiO0JPrsdbVAhXHKCYKHSTeAN8QFghIMAQ&amp;url=https%3A%2F%2Fstackoverflow.com%2Fquestions%2F22839116%2Fprocess-output-after-template-engine-in-spring-mvc&amp;usg=AFQjCNE4dTshOBqz9-z9WRc-Si_kslu3tA" target="_blank" rel="external">java - Process output after template engine in Spring MVC - Stack …</a>”</p>
-<p>“<a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=6&amp;cad=rja&amp;uact=8&amp;ved=0ahUKEwiO0JPrsdbVAhXHKCYKHSTeAN8QFghRMAU&amp;url=https%3A%2F%2Fstackoverflow.com%2Fquestions%2F22422411%2Fhow-to-manually-render-spring-mvc-view-to-html&amp;usg=AFQjCNEDzK7tP5kFlafyNA8S8Nh_hupe3Q" target="_blank" rel="external">java - How to manually render Spring MVC view to html? - Stack …</a>“</p>
-<p>嗯，有不用 filter 的解决方案了，自定义 viewClass，那就搜下 spring boot 是咋自定义 viewClass，看看官方文档<a href="http://docs.spring.io/spring-boot/docs/1.1.4.RELEASE/reference/htmlsingle/#common-application-properties" target="_blank" rel="external">http://docs.spring.io/spring-boot/docs/1.1.4.RELEASE/reference/htmlsingle/#common-application-properties</a> 没有。。。那就 google 吧</p>
-</blockquote>
-<p>13，google “spring boot viewclass property”</p>
-<blockquote>
-<p><a href="https://stackoverflow.com/questions/36831477/how-to-configure-spring-boot-mvc-app-for-jsp" target="_blank" rel="external">java - How to configure spring boot mvc app for JSP? - Stack Overflow</a></p>
-<p>不错的结果</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Bean</span></div><div class="line"><span class="function"><span class="keyword">public</span> InternalResourceViewResolver <span class="title">setupViewResolver</span><span class="params">()</span> </span>&#123;</div><div class="line">    InternalResourceViewResolver resolver =  <span class="keyword">new</span> InternalResourceViewResolver();</div><div class="line">    resolver.setPrefix (<span class="string">"/ui/jsp/"</span>);</div><div class="line">    resolver.setSuffix (<span class="string">".jsp"</span>);</div><div class="line">    resolver.setViewClass (JstlView.class);</div><div class="line">    <span class="keyword">return</span> resolver;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>顺便还搞清楚了</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jstl<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>Embedded Tomcat core package has no JSP rendering support.</p>
-</blockquote>
-<p>14，google “spring view life cycle”</p>
-<blockquote>
-<p><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0ahUKEwjAs9PtsdbVAhWCSSYKHZ85AjoQFggnMAA&amp;url=https%3A%2F%2Fstackoverflow.com%2Fquestions%2F20385474%2Fspringmvc-lifecycle-the-overall-view&amp;usg=AFQjCNExvRFtgqXEF9bG9TYaQv_guiAPDA" target="_blank" rel="external">spring mvc - SpringMVC lifecycle– the overall view - Stack Overflow</a> 里面又提到官方文档 <a href="http://docs.spring.io/spring/docs/3.2.5.RELEASE/spring-framework-reference/htmlsingle/#mvc" target="_blank" rel="external">Spring Framework Reference</a> 看一眼吧</p>
-<p><a href="http://forum.spring.io/forum/spring-projects/web/12536-spring-mvc-request-lifecycle-diagram" target="_blank" rel="external">Spring MVC Request Lifecycle Diagram - Spring Forum</a>  提到了一张图片 <a href="https://www.flickr.com/photo_zoom.gne?id=89101625&amp;size=l" target="_blank" rel="external">https://www.flickr.com/photo_zoom.gne?id=89101625&amp;size=l</a> 明明这个<a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=6&amp;ved=0ahUKEwialt3lq9bVAhVBxFQKHf4JByIQFghQMAU&amp;url=http%3A%2F%2Fforum.spring.io%2Fforum%2Fspring-projects%2Fweb%2F12536-spring-mvc-request-lifecycle-diagram&amp;usg=AFQjCNE-twDI97dahZ0nnYIPnlrNB5hyXw" target="_blank" rel="external">结果</a>就是通过搜索结果进去的，现在的结果里咋就看不到了呢</p>
-</blockquote>
-<hr>
-<p>剩下来的就是写代码了。</p>
-<p>情况并不是想象的那么好</p>
-<p>JstlView 的自定义并不是想象的那么好弄。</p>
-<hr>
-<p>15，先研究下 ViewAndModel， google “ModelAndView”</p>
-<p>16，峰回路转在研究 ViewAndModel 的时候回看 google<br>“jstlview” 的结果 <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=3&amp;ved=0ahUKEwjWwNaq9dbVAhVJ3IMKHUeiBtAQFgg1MAI&amp;url=http%3A%2F%2Fblog.sina.com.cn%2Fs%2Fblog_6d3c1ec601016ta5.html&amp;usg=AFQjCNEZvgqnCE6NDrwp2BG10wp6eMeecw" target="_blank" rel="external">[View]2 详解JSP和JSTL视图(InternalResourceView,JstlView …</a> 看到了 <code>void setDefaultParentView(String defaultParentView)</code> 这个方法，不管了先试试看。</p>
-<p>17，parent 在 ResourceBundleViewResolver 里面到底是什么鬼，好像只是继承关系，并不满足要求。</p>
-<p>google “spring ResourceBundleViewResolver parent” 倒是提到了一本书<a href="https://books.google.com/books?id=L7d0LNpSrRwC&amp;pg=PA211&amp;lpg=PA211&amp;dq=spring+ResourceBundleViewResolver+parent&amp;source=bl&amp;ots=GF62b2Bti0&amp;sig=pkoks_XI6Ddw_SHGwfuWwW6FWJw&amp;hl=zh-CN&amp;sa=X&amp;ved=0ahUKEwjExZy3gtjVAhUIjFQKHdguDMUQ6AEIODAC" target="_blank" rel="external">Expert Spring MVC and Web Flow - 第 211 页 - Google 图书结果</a> (<a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.211.7783&amp;rep=rep1&amp;type=pdf" target="_blank" rel="external">pdf</a>) 抽空看一下</p>
-<p>google “spring “setDefaultParentView”” </p>
-<blockquote>
-<p>看起来好像只是设置了默认 view</p>
-</blockquote>
-<p>18， google “modelandview to html”</p>
-<blockquote>
-<p>第一个结果 <a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0ahUKEwiS57_QodjVAhWKsFQKHTvJCmwQFggnMAA&amp;url=https%3A%2F%2Fstackoverflow.com%2Fquestions%2F38996140%2Fget-html-content-from-spring-modelandview&amp;usg=AFQjCNHkZODekUH7vEbktfocQmrrmWxfTw" target="_blank" rel="external">java - Get html content from spring ModelAndView - Stack Overflow</a> 是想要的结果但是是给的伪代码，这个年代不给出明确的代码还真难再 spring 里面走。继续看看其他结果吧</p>
-<p>诶，这个结果不是12步里面的结果吗？  “<a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=6&amp;cad=rja&amp;uact=8&amp;ved=0ahUKEwiO0JPrsdbVAhXHKCYKHSTeAN8QFghRMAU&amp;url=https%3A%2F%2Fstackoverflow.com%2Fquestions%2F22422411%2Fhow-to-manually-render-spring-mvc-view-to-html&amp;usg=AFQjCNEDzK7tP5kFlafyNA8S8Nh_hupe3Q" target="_blank" rel="external">java - How to manually render Spring MVC view to html? - Stack …</a>“ 手动转换 child jsp 到 html 再当成 ModelMap 属性传给 global；世界真是转圈圈。</p>
-</blockquote>
-<p>19，顺便 google “ModelAndView”</p>
-<blockquote>
-<p><a href="https://stackoverflow.com/questions/5055358/what-is-model-in-modelandview-from-spring-mvc" target="_blank" rel="external">What is Model in ModelAndView from Spring MVC? - Stack Overflow</a> 了解了怎么传值给jsp</p>
-</blockquote>
-<p>20，午休的时候不死心 google “spring view common wrapper”</p>
-<blockquote>
-<p><a href="https://stackoverflow.com/questions/19874744/wrap-template-with-a-parent-layout-using-thymeleaf" target="_blank" rel="external">wrap template with a parent layout using thymeleaf - Stack Overflow</a> 好结果，不过用到了模版引擎。在第一个回答里面的comments 里面有个<a href="http://blog.codeleak.pl/2013/11/thymeleaf-template-layouts-in-spring.html" target="_blank" rel="external">链接</a>，额好像是个人服务器，已经关了，还好有 <a href="http://webcache.googleusercontent.com/search?q=cache:fBKEo74-R7EJ:blog.codeleak.pl/2013/11/thymeleaf-template-layouts-in-spring.html+&amp;cd=1&amp;hl=zh-CN&amp;ct=clnk&amp;gl=us" target="_blank" rel="external">google 快照</a>，关键的地方有个 fragments。</p>
-</blockquote>
-<p>21，尝试 google “spring jsp fragments”</p>
-<blockquote>
-<p><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0ahUKEwjpqe3C3NjVAhXJilQKHck5DekQFggnMAA&amp;url=https%3A%2F%2Fstackoverflow.com%2Fquestions%2F4057136%2Frender-partial-jsp-fragments-in-spring-mvc%3Frq%3D1&amp;usg=AFQjCNF_XYKzwnmGjB_OHsysAqFp_feF0w" target="_blank" rel="external">ajax - Render partial JSP fragments in Spring MVC? - Stack Overflow</a> 哈就是跟我现在要做的一样。</p>
-<p><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=0ahUKEwjpqe3C3NjVAhXJilQKHck5DekQFggvMAE&amp;url=http%3A%2F%2Fspring.io%2Fblog%2F2012%2F10%2F30%2Fspring-mvc-from-jsp-and-tiles-to-thymeleaf%2F&amp;usg=AFQjCNGZSZZf21likr6VwmXkAaQDfz5EUg" target="_blank" rel="external">Spring MVC: from JSP and Tiles to Thymeleaf</a> 第二个结果好像非 Thymeleaf 不用了，等等 <code>&lt;jsp:include page=&quot;../footer.jspx&quot;/&gt;</code> 试试看呢，为啥一开始没是这种方法呢。。 。<code>&lt;%@ include file = &quot;./lrcpage.jsp&quot; &gt;</code> 一开始用的这种方法，报语法错误:joy:。</p>
-</blockquote>
-<p>22，应该是在 19 步的时候 gooogle “spring “setDefaultParentView”” </p>
-<blockquote>
-<p><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=10&amp;cad=rja&amp;uact=8&amp;ved=0ahUKEwit4uDlvtnVAhUK3GMKHbm_DkQQFghgMAk&amp;url=http%3A%2F%2Fdba10g.blog.51cto.com%2F764602%2F1880178&amp;usg=AFQjCNHp34e2g-5nO4QAix5wiGBRhlY0Wg" target="_blank" rel="external">SpringMVC源码分析（8）剖析ViewResolver - 简单- 51CTO技术博客</a> 得到一个有用的信息 </p>
-<p>InternalResourceViewResolver会把返回的视图名称都解析为InternalResourceView对象，InternalResourceView会把Controller处理器方法返回的模型属性都存放到对应的request属性中，然后通过RequestDispatcher在服务器端把请求forword重定向到目标URL。</p>
-<p>现在的情况就是在返回视图名称的时候替换成 “global” 然后把原视图名称放到 “ModelMap” 的 “template” 属性里面。</p>
-</blockquote>
-<p>23，回头看一下 9 里面的 spring 处理流程图。再研究下源码。</p>
-<p>24，试想一下我们是不是可以自己写 handler 或 hanler adapter 来处理返回的视图名称。或者 aop 呢</p>
-<p>25，google “spring 拦截controller 返回的视图名称”</p>
-<blockquote>
-<p><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=8&amp;ved=0ahUKEwjK84vXxtnVAhVNwWMKHSlyDD8QFghTMAc&amp;url=http%3A%2F%2Fwww.bijishequ.com%2Fdetail%2F259020%3Fp%3D38&amp;usg=AFQjCNFynsqcSYecbwRi-xChL9W87bpjjw" target="_blank" rel="external">Spring MVC 框架入门学习–视图,控制器,拦截器,json,页面 - 笔记社区</a> 这个比较全面</p>
-</blockquote>
-<p>26，google “spring aop return”</p>
-<blockquote>
-<p><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=3&amp;ved=0ahUKEwiK94q80NrVAhVmjVQKHY0fBVMQFgg2MAI&amp;url=https%3A%2F%2Fstackoverflow.com%2Fquestions%2F14017860%2Fhow-to-change-the-return-value-by-spring-aop&amp;usg=AFQjCNFlUT2GWmmUoSlbXWXix4z33GNYpw" target="_blank" rel="external">java - How to change the return value by spring aop - Stack Overflow</a></p>
-<p>有人建议用 @Around 看一下他提供的<a href="http://vikdor.blogspot.com/2012/10/memoize-in-java-using-spring-and-aspects.html" target="_blank" rel="external">链接</a>吧<br>我的代码是：</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="meta">@Aspect</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ControllerAspect</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Around</span>(<span class="string">"execution(* com.firstlrc.controllers.page.*.*(..))"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">handled</span><span class="params">(ProceedingJoinPoint pjp)</span> <span class="keyword">throws</span> Throwable </span>&#123;</div><div class="line">        System.out.println(<span class="string">"Handling memoize"</span>);</div><div class="line">        Object[] args = pjp.getArgs();</div><div class="line">        <span class="keyword">for</span> (Object arg : args) &#123;</div><div class="line">            <span class="keyword">if</span> (arg <span class="keyword">instanceof</span> ModelMap) &#123;</div><div class="line">                ((ModelMap)arg).addAttribute(<span class="string">"templage"</span>, pjp.proceed());</div><div class="line">                <span class="keyword">return</span> <span class="string">"global"</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> (String) pjp.proceed();</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>多次试验的结果是上面代码返回的 global 可以在 DispatcherServlet debug 看到，但是 报 <code>File [/WEB-INF/jsp/.jsp] not found</code> google 也没结果。奇怪了为啥 view 的名字不见了。</p>
-<p>27，google “spring aspect on controller” </p>
-<blockquote>
-<p><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0ahUKEwjwuuye29rVAhUJwVQKHVD3CfUQFggqMAA&amp;url=https%3A%2F%2Fstackoverflow.com%2Fquestions%2F23607872%2Fspring-aop-pointcut-for-all-methods-in-a-controller&amp;usg=AFQjCNEx_EpX8m_v4ZGEHOOY1VbCrwbpLQ" target="_blank" rel="external">java - Spring AOP pointcut for all methods in a controller - Stack Overflow</a> 提到了 <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html#mvc-ann-controller-advice" target="_blank" rel="external">@ControllerAdvice</a> </p>
-</blockquote>
-<p>28，google “spring aspect on controller change return view name”</p>
-<blockquote>
-<p><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=4&amp;ved=0ahUKEwjXg-7S4NrVAhUS-lQKHRjEDEMQFgg_MAM&amp;url=https%3A%2F%2Fstackoverflow.com%2Fquestions%2F25417721%2Faspectj-around-advice-for-controller-request-methods-not-working&amp;usg=AFQjCNH1RCyyfWNjhZA4z33ygVdWjZh35A" target="_blank" rel="external">java - AspectJ - around advice for controller request methods not …</a> 提到 <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/HandlerInterceptor.html" target="_blank" rel="external">HandlerInterceptor</a> </p>
-</blockquote>
-<p>29，google “@ControllerAdvice sample” 验证了并不是我想要的结果</p>
-<blockquote>
-<p><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0ahUKEwjvl5_-39rVAhUhxlQKHcMoAbwQFggqMAA&amp;url=http%3A%2F%2Fviralpatel.net%2Fblogs%2Fspring-mvc-exception-handling-controlleradvice-annotation%2F&amp;usg=AFQjCNFOaurARyNrMFV7PofOtAgTORmkTg" target="_blank" rel="external">Spring MVC Exception Handling using @ControllerAdvice annotation</a> 只是用来处理 Exception<br>回到 <26>，为啥 view 的名字在 <code>RequestDispatcher</code> forward 的时候丢掉了呢。</26></p>
-</blockquote>
-<p>30，在 <28> 的结果里同时提到 <a href="https://stackoverflow.com/a/5866960/342852" target="_blank" rel="external">Spring 3 MVC @Controller with AOP interceptors?</a></28></p>
-<blockquote>
-<p>Note<br>When using controller interfaces (e.g. for AOP proxying), make sure to consistently put all your mapping annotations - such as  @RequestMapping and @SessionAttributes - on the controller interface rather than on the implementation class.</p>
-<p>猜想可能就是写法的问题。结合上面提到的，需要自定义一个 annotation 并且放到 <code>@RequestMapping</code> 的上面。</p>
-<p>一试果然正常了。亲哥，你是我的亲哥啊。等等……上面好像没有提到位置的问题啊。并且没有 top bottom 关键字啊。唉！不管了。反正成功了。</p>
-</blockquote>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>从一开始得到一个能用的结果。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">View resolvedView = viewResolver.resolveViewName(<span class="string">"lrcpage"</span>, Locale.US);</div><div class="line">MockHttpServletResponse mockResp = <span class="keyword">new</span> MockHttpServletResponse();</div><div class="line">resolvedView.render(modelMap, req, mockResp);</div><div class="line"></div><div class="line">ModelAndView modelAndView = <span class="keyword">new</span> ModelAndView(<span class="string">"global"</span>, <span class="string">"content"</span>, mockResp.getContentAsString());</div><div class="line"><span class="keyword">return</span> modelAndView;</div></pre></td></tr></table></figure></p>
-<p>到</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">modelMap.addAttribute(<span class="string">"template"</span>, <span class="string">"lrcpage"</span>);</div><div class="line"><span class="keyword">return</span> <span class="string">"global"</span>;</div></pre></td></tr></table></figure>
-<p>最终到我们熟悉的写法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> <span class="string">"lrcpage"</span>;</div></pre></td></tr></table></figure>
-<p>为了找到一个最优美的解决方案，经过不懈的努力，终于如愿以偿。</p>
-
-          
+          首先说明 一下需求，有若干个 jsp 页面，想使用同一个 jsp 做 parent 然后， 每个 view 只放入 parent 的某个节点下面，比如 content。
+很简单的一个需求但是至少花了我三天的时间。由于是使用的 google，所以就想把通过不断的自我提问以及根据网上人们的答案一步步缩小问题范围，修正精炼需求的过程记录下来。顺便看一下 google 是如何一步步引导自己走向新的不熟悉的领域。再看一下自己是如何一步步步入歧途，以及如何迷途知返的。
+知道需求我们就开始去寻找解决方案吧。因为我用的是 spring mvc，所以先看看官方有没有解决方案吧。
+1， google “sprin
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/30/google-jsp-template-engine/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -815,20 +803,22 @@
       
         
           
-            <blockquote>
-<p>from disk cache<br>from memory cache</p>
-</blockquote>
-<h3 id="强校验器与弱校验器。"><a href="#强校验器与弱校验器。" class="headerlink" title="强校验器与弱校验器。"></a>强校验器与弱校验器。</h3><p>ETags，作为缓存的一种强校验器。<br>Last-Modified 响应头可以作为一种弱校验器。</p>
-<p>如果没有包含校验器，并且缓存没有过期。就会有200 (from disk cache / from memory cache)情况，这样浏览可以更快的获取到资源，没有网络开销。</p>
-<p>如果有校验器，<br>就始终有网路开销。在缓存没有失效的情况下服务器会返回 304.</p>
-<h3 id="使用情况"><a href="#使用情况" class="headerlink" title="使用情况"></a>使用情况</h3><p>在改动不频繁的情况下可以不使用校验器。像博客系统的 js，css 资源。图片</p>
-<p>在改动较频繁的情况下，根据情况使用强弱校验器。或者在 url 后面加入版本号，不使用校验器。</p>
-<h3 id="缓存判断寻找顺序"><a href="#缓存判断寻找顺序" class="headerlink" title="缓存判断寻找顺序"></a>缓存判断寻找顺序</h3><p>Cache-control: max-age=N =》 Expires: <date> =》Last-Modified: <date></date></date></p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><blockquote>
-<p><a href="http://div.io/topic/854" target="_blank" rel="external">http://div.io/topic/854</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ</a><br><a href="https://segmentfault.com/a/1190000009569701" target="_blank" rel="external">https://segmentfault.com/a/1190000009569701</a></p>
-</blockquote>
-
           
+from disk cachefrom memory cache
+
+强校验器与弱校验器。ETags，作为缓存的一种强校验器。Last-Modified 响应头可以作为一种弱校验器。
+如果没有包含校验器，并且缓存没有过期。就会有200 (from disk cache / from memory cache)情况，这样浏览可以更快的获取到资源，没有网络开销。
+如果有校验器，就始终有网路开销。在缓存没有失效的情况下服务器会返回 304.
+使用情况在改动不频繁的情况下可以不使用校验器。像博客系统的 js，css 资源。图片
+在改动较频繁的情况下，根据情况使用强弱校验器。或者在 url 后面加入版本
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/04/http-cache/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -938,18 +928,18 @@
       
         
           
-            <p>不能自动隐藏的导航栏都是不合格的导航栏。</p>
-<p>为什么这么说呢，因为使用空格键或翻页键的时候，不隐藏的导航栏会始终占用页面顶上的一部分空间。导致大部分时候空格键或翻页键处于不可用状态。在键盘这么空间极度有限的情况下能分配出三个键用来改进用户的阅读体验，却被大部分开发者忽略了。</p>
-<p>在 chrome 浏览器上经试验，会留几十像素的冗余，具体多少是根据你窗口大小来的，为的是方便看到上次阅读到哪里了。</p>
-<p>为了解决这问题先看下浏览器滚动是怎么工作的。通过开发这工具发现，当一个网页超出一屏的显示范围的时候，html，body 的高度是整个内容高度，而不是窗口的高度。这样会导致我们整个网页在滚动的时候实际上是滚动的html里面所有的内容。</p>
-<p>了解了问题所在，解决起来就方便多了。下面提供三种方案：</p>
-<p>方案一：限制html的高度为整个窗口的高度。首先html 和 body 高度要是窗口的高度，不能被内容撑高。二是滚动条不能作用在 html 上面，也不能是 body 上面，而是直接滚动内容区域 。三是在内容区域添加滚动条。使用 flexbox 能很简单就实现一部分定宽／高，另外一部分自适应宽／高，看代码<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">class</span>=<span class="string">"full-height"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>truly navigation<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></div><div class="line">  * &#123;</div><div class="line">    box-sizing: border-box;</div><div class="line">  &#125;</div><div class="line">  html &#123;</div><div class="line">  &#125;</div><div class="line">  body &#123;</div><div class="line">    margin: 0;</div><div class="line">  &#125;</div><div class="line">  nav &#123;</div><div class="line">    background-color: rgba(2,2,2, .5);</div><div class="line">    color: white;</div><div class="line">    /*position: fixed;*/ /* 注意这里 */</div><div class="line">    height: 40px;</div><div class="line">    line-height: 40px;</div><div class="line">    width: 100%;</div><div class="line">    top: 0;</div><div class="line">    left: 0;</div><div class="line">    text-align: center;</div><div class="line">  &#125;</div><div class="line">  .container &#123;</div><div class="line">    overflow: auto;</div><div class="line">  &#125;</div><div class="line">  .full-height &#123;</div><div class="line">    height: 100%;</div><div class="line">  &#125;</div><div class="line">  .flex-vertical &#123;</div><div class="line">    display: flex;</div><div class="line">    flex-direction: column;</div><div class="line">  &#125;</div><div class="line">  .flex-none &#123;</div><div class="line">    flex: none;</div><div class="line">  &#125;</div><div class="line">  .flex-auto &#123;</div><div class="line">    flex: auto;</div><div class="line">  &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">class</span>=<span class="string">"full-height flex-vertical"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">"flex-none"</span>&gt;</span>truly navigation<span class="tag">&lt;/<span class="name">nav</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">"container flex-auto"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">article</span> <span class="attr">class</span>=<span class="string">"article"</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- content here --&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">article</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">section</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p><a href="/demo/truly_navigation_p100_height.html">demo</a></p>
-<p>方案二：自动隐藏导航栏。这种方式应该是最优雅的吧。最主要是能提供沉浸式阅读体验。下面的代码是通过判断窗口的滚动高度来实现。当然你也可以通过判断滚动方向来实现。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.addEventListener(<span class="string">"scroll"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">    handleScroll()</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleScroll</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.scrollY &gt; <span class="number">40</span>) &#123;</div><div class="line">        <span class="built_in">document</span>.getElementByTagName(<span class="string">"nav"</span>).classList.add(<span class="string">"nav-hide"</span>)</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">document</span>.getElementByTagName(<span class="string">"nav"</span>).classList.remove(<span class="string">"nav-hide"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p> <a href="/demo/truly_navigation_auto_hide.html">demo</a></p>
-<p>方案三：也是最简单的，直接让滚动条跟随窗口一起滚动。这里就不提供实现代码了。</p>
-
-          
+          不能自动隐藏的导航栏都是不合格的导航栏。
+为什么这么说呢，因为使用空格键或翻页键的时候，不隐藏的导航栏会始终占用页面顶上的一部分空间。导致大部分时候空格键或翻页键处于不可用状态。在键盘这么空间极度有限的情况下能分配出三个键用来改进用户的阅读体验，却被大部分开发者忽略了。
+在 chrome 浏览器上经试验，会留几十像素的冗余，具体多少是根据你窗口大小来的，为的是方便看到上次阅读到哪里了。
+为了解决这问题先看下浏览器滚动是怎么工作的。通过开发这工具发现，当一个网页超出一屏的显示范围的时候，html，body 的高度是整个内容高度，而不是窗口的高度。这样会导致我们整个网页在滚动的时候实际上是滚动的h
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/21/truly-navigation/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1027,7 +1017,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1040,7 +1030,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
