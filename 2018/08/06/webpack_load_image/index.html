@@ -1,0 +1,703 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="webpack,tricks,config," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="已经纯在的问题12345678910111213141516171819module: &amp;#123;  rules: [             &amp;#123;      test: /(logo|outlier|coaching)\.png$/,      loader: &apos;file-loader?name=./[path][name].[ext]&apos;    &amp;#125;,    &amp;#123;">
+<meta name="keywords" content="webpack,tricks,config">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webpack 解决 CSS 图片加载问题">
+<meta property="og:url" content="http://yoursite.com/2018/08/06/webpack_load_image/index.html">
+<meta property="og:site_name" content="不要温柔的走进那个良夜">
+<meta property="og:description" content="已经纯在的问题12345678910111213141516171819module: &amp;#123;  rules: [             &amp;#123;      test: /(logo|outlier|coaching)\.png$/,      loader: &apos;file-loader?name=./[path][name].[ext]&apos;    &amp;#125;,    &amp;#123;">
+<meta property="og:updated_time" content="2018-08-06T12:42:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Webpack 解决 CSS 图片加载问题">
+<meta name="twitter:description" content="已经纯在的问题12345678910111213141516171819module: &amp;#123;  rules: [             &amp;#123;      test: /(logo|outlier|coaching)\.png$/,      loader: &apos;file-loader?name=./[path][name].[ext]&apos;    &amp;#125;,    &amp;#123;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/06/webpack_load_image/"/>
+
+
+
+
+
+  <title>Webpack 解决 CSS 图片加载问题 | 不要温柔的走进那个良夜</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不要温柔的走进那个良夜</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/webpack_load_image/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeffry Yu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://orwf5fma6.bkt.clouddn.com/Into_the_Unknown_by_kerembeyit.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不要温柔的走进那个良夜">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Webpack 解决 CSS 图片加载问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-06T20:34:26+08:00">
+                08.06.2018
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="已经纯在的问题"><a href="#已经纯在的问题" class="headerlink" title="已经纯在的问题"></a>已经纯在的问题</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">module</span>: &#123;</div><div class="line">  <span class="attr">rules</span>: [         </div><div class="line">    &#123;</div><div class="line">      <span class="attr">test</span>: <span class="regexp">/(logo|outlier|coaching)\.png$/</span>,</div><div class="line">      <span class="attr">loader</span>: <span class="string">'file-loader?name=./[path][name].[ext]'</span></div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">      <span class="attr">test</span>: <span class="regexp">/\.(png|jpg)$/</span>,</div><div class="line">      <span class="attr">loader</span>: <span class="string">'file-loader?name=./[path][name].[ext]&amp;publicPath=.'</span>,</div><div class="line">      <span class="attr">exclude</span>: <span class="regexp">/(logo|outlier|coaching)\.png$/</span></div><div class="line">    &#125;</div><div class="line">  ]</div><div class="line">&#125;,</div><div class="line"><span class="attr">plugins</span>: [</div><div class="line">  <span class="keyword">new</span> ExtractTextPlugin(&#123;</div><div class="line">    <span class="attr">filename</span>: <span class="string">'./css/[name].css'</span>,</div><div class="line">    <span class="attr">allChunks</span>: <span class="literal">true</span></div><div class="line">   &#125;)</div><div class="line">]</div></pre></td></tr></table></figure>
+<p>如上面所示的配置文件，由于配置了 <code>extract-text-webpack-plugin</code> 并且把 css 文件放在了 css 目录下，导致 css 中引用图片的相对路径要发生变化。所以配置了两个图片加载器，来区分 css 与 jsx 中加载的图片。css 中加载的图片要单独配置 <code>publicPath</code> 来修改相对路径。最终结果是 jsx 引用图片的路径是 <code>./img/logo.png</code>，css 中引用的图片是 <code>../img/loginbg.png</code>，看似问题是解决了。但是为了区分 jsx 与 css 加载的图片，jsx 中加载的图片要明确指明是哪些，精确到文件名，css 中加载的图片要排除在 jsx 中加载的图片。这就导致了，每加一次图片都要检查下 webpack 的配置文件。团队来新成员了，都要熟悉这条规则。不利于后期维护。</p>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>基于你遇到过问题别人都会遇到的原则，去网上寻找答案。其实这个问题在项目中 15 年就纯在了 :(</p>
+<h3 id="1，google-webpack-loader-image-different-js-and-css"><a href="#1，google-webpack-loader-image-different-js-and-css" class="headerlink" title="1，google webpack loader image different js and  css"></a>1，google <code>webpack loader image different js and  css</code></h3><p>恰好第一个结果就指向了 <code>file-loader</code>  的 <a href="https://github.com/webpack-contrib/file-loader/issues/272" target="_blank" rel="external">issues/272</a> @evilebottnawi 回答到</p>
+<blockquote>
+<p>@a-carvallo Please read my notices, relative urls is out of scope file-loader, <strong>it should be done by minifier/uglifier</strong>. Main function file-loader is save file to fs and output public path to this asset and all. Change url in css should be done with cssnano or csso. Thanks!  </p>
+</blockquote>
+<p>这事不归 <code>file-loader</code> 管？</p>
+<h3 id="2，ExtractTextPlugin"><a href="#2，ExtractTextPlugin" class="headerlink" title="2，ExtractTextPlugin"></a>2，ExtractTextPlugin</h3><p>既然不归 <code>file-loader</code> 管，那就看看 ExtractTextPlugin <a href="https://github.com/webpack-contrib/extract-text-webpack-plugin" target="_blank" rel="external">官方文档</a>，有没有这关于方面的配置。找到一个稍微有用点的配置 <code>url: false</code>，结果 webpack 根本就不处理 css 的 <code>url()</code> 引用了😂</p>
+<h4 id="1），ExtractTextPlugin-issue-list"><a href="#1），ExtractTextPlugin-issue-list" class="headerlink" title="1），ExtractTextPlugin issue list"></a>1），ExtractTextPlugin issue list</h4><p>在次基于你遇到过问题别人都会遇到的原则，去看看 issue list 里面有没有人提到同样的问题，结果还真让我找到了。<a href="https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/246" target="_blank" rel="external">publicPath parameter doesn’t work? #246</a><br>然后就是一通尝试。</p>
+<h4 id="2），output-publicPath"><a href="#2），output-publicPath" class="headerlink" title="2），output. publicPath"></a>2），output. publicPath</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">output: &#123;</div><div class="line">  publicPath: &apos;./&apos;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>发现改的是全局的 publickPath。结果 js 和 css 都加载不成功了</p>
+<h4 id="3），loader-publicPath"><a href="#3），loader-publicPath" class="headerlink" title="3），loader.publicPath"></a>3），loader.publicPath</h4><p>看到 @mohammadalipak 给出的配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  test: /\.global\.scss$/,</div><div class="line">  use: ExtractTextPlugin.extract(&#123;</div><div class="line">    use: [...],</div><div class="line">    fallback: &apos;style-loader&apos;,</div><div class="line">    publicPath: &apos;./&apos;,</div><div class="line">  &#125;)</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<p>发现使用的是 loader 里面的 publicPath，但是根据以往的经验修改 loader 里面的 publicPath 影响的是其他的地方对自己的引用，比如 <code>file-loader</code>，管他呢先试试再说。</p>
+<p>见证奇迹的时刻，竟然 css 里面的 <code>url()</code> 发生了变化。如果真是这样就解决了 jsx 与 css 对图片引用不好区分的问题，经过多番试验证实确实就是这样。至此问题就算解决了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">module: &#123;</div><div class="line">  rules: [</div><div class="line">    &#123;</div><div class="line">      test: /\.s?css$/,</div><div class="line">      use: ExtractTextPlugin.extract(&#123;</div><div class="line">        use: [</div><div class="line">          &#123;loader: &apos;css-loader&apos;, options: &#123;minimize: true&#125;&#125;,</div><div class="line">          &#123;loader: &apos;postcss-loader&apos;, options: postcssOpts&#125;,</div><div class="line">          &#123;loader: &apos;sass-loader&apos;&#125;</div><div class="line">        ],</div><div class="line">        publicPath: &apos;.&apos;,</div><div class="line">      &#125;)</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">      test: /\.(png|jpg)$/,</div><div class="line">      loader: &apos;file-loader?name=./[path][name].[ext]&apos;</div><div class="line">    &#125;</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/webpack/" rel="tag"># webpack</a>
+          
+            <a href="/tags/tricks/" rel="tag"># tricks</a>
+          
+            <a href="/tags/config/" rel="tag"># config</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/22/js-and-css-animation-switch/" rel="next" title="JS, CSS 动画无缝切换。">
+                <i class="fa fa-chevron-left"></i> JS, CSS 动画无缝切换。
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://orwf5fma6.bkt.clouddn.com/Into_the_Unknown_by_kerembeyit.jpg"
+               alt="Jeffry Yu" />
+          <p class="site-author-name" itemprop="name">Jeffry Yu</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#已经纯在的问题"><span class="nav-number">1.</span> <span class="nav-text">已经纯在的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决问题"><span class="nav-number">2.</span> <span class="nav-text">解决问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1，google-webpack-loader-image-different-js-and-css"><span class="nav-number">2.1.</span> <span class="nav-text">1，google webpack loader image different js and  css</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2，ExtractTextPlugin"><span class="nav-number">2.2.</span> <span class="nav-text">2，ExtractTextPlugin</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1），ExtractTextPlugin-issue-list"><span class="nav-number">2.2.1.</span> <span class="nav-text">1），ExtractTextPlugin issue list</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2），output-publicPath"><span class="nav-number">2.2.2.</span> <span class="nav-text">2），output. publicPath</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3），loader-publicPath"><span class="nav-number">2.2.3.</span> <span class="nav-text">3），loader.publicPath</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeffry Yu</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
