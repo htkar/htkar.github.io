@@ -1,0 +1,829 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="React,Component," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/fav.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="antd form react-final-form redux-form     customize Field yes yes yes   asyncValidating yes yes yes   form create HOC Context Context, HOC   react 16 yes yes yes   Form state management “state” “s">
+<meta name="keywords" content="React,Component">
+<meta property="og:type" content="article">
+<meta property="og:title" content="antd form(rc-form) vs redux-form vs react-final-form">
+<meta property="og:url" content="http://yoursite.com/2019/07/08/react-form/index.html">
+<meta property="og:site_name" content="不要温柔的走进那个良夜">
+<meta property="og:description" content="antd form react-final-form redux-form     customize Field yes yes yes   asyncValidating yes yes yes   form create HOC Context Context, HOC   react 16 yes yes yes   Form state management “state” “s">
+<meta property="og:image" content="http://yoursite.com/images/react-form/antd-form.png">
+<meta property="og:image" content="http://yoursite.com/images/react-form/react-form.png">
+<meta property="og:image" content="http://yoursite.com/images/react-form/redux-form.png">
+<meta property="og:updated_time" content="2019-07-10T07:45:23.404Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="antd form(rc-form) vs redux-form vs react-final-form">
+<meta name="twitter:description" content="antd form react-final-form redux-form     customize Field yes yes yes   asyncValidating yes yes yes   form create HOC Context Context, HOC   react 16 yes yes yes   Form state management “state” “s">
+<meta name="twitter:image" content="http://yoursite.com/images/react-form/antd-form.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/08/react-form/"/>
+
+
+
+
+
+  <title>antd form(rc-form) vs redux-form vs react-final-form | 不要温柔的走进那个良夜</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不要温柔的走进那个良夜</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/08/react-form/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeffry Yu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avator.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不要温柔的走进那个良夜">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">antd form(rc-form) vs redux-form vs react-final-form</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-08T16:33:00+08:00">
+                07.08.2019
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <table>
+<thead>
+<tr>
+<th></th>
+<th>antd form</th>
+<th>react-final-form</th>
+<th>redux-form</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>customize Field</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>asyncValidating</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>form create</td>
+<td>HOC</td>
+<td>Context</td>
+<td>Context, HOC</td>
+</tr>
+<tr>
+<td>react 16</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>Form state management</td>
+<td>“state”</td>
+<td>“state”</td>
+<td>redux</td>
+</tr>
+<tr>
+<td>Field state management</td>
+<td>“state”</td>
+<td>“state”</td>
+<td>redux</td>
+</tr>
+<tr>
+<td>has basic component</td>
+<td>yes</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr>
+<td>Array</td>
+<td>getFieldDecorator (`names[${k}]`, {…})()</td>
+<td>同 redux-form</td>
+<td>&lt;Field name={`${member}.firstName`} /&gt;</td>
+</tr>
+<tr>
+<td>value deliver from values</td>
+<td>N/A</td>
+<td>Pub/Sub</td>
+<td>mapStateProps</td>
+</tr>
+<tr>
+<td>get values</td>
+<td>this.props.form. getFieldsValue((value) =&gt; {})</td>
+<td>onSubmit(values)</td>
+<td>onSubmit(values)</td>
+</tr>
+<tr>
+<td>Performance</td>
+<td>reconciler other field</td>
+<td>reconciler other field</td>
+<td>reconciler other field but scu</td>
+</tr>
+<tr>
+<td>Field</td>
+<td>getFieldDecorator (name, {})</td>
+<td>&lt;Field /&gt;</td>
+<td>&lt;Field /&gt;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="写法"><a href="#写法" class="headerlink" title="写法"></a>写法</h2><p>由于要给 Form 赋上很多功能，antd form 和 redux-form 采用的是 HOC，HOC 看起不太直观，并且多一个步骤。相对于通过 Context 方式少了一点优雅。</p>
+<p>redux-form 在使用了 HOC 的同时还使用了 Context，混合的使用方式，吸取了 HOC 的 proxy props 的长处为 Field 赋上 onChange 等事件。</p>
+<p>antd from 借助 API getFieldDecorator() 来实现表单元素的“双向绑定”略显繁琐。</p>
+<h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><p>一下结论都是基于 debug 得出的。</p>
+<p>antd from 行为类似于 react-final-form</p>
+<p>react-final-form。一个表单元素的改动会触发同一个 form 内的其他表单元素更新，浪费性能</p>
+<p>redux-form 由于是通过表单元素自己来管理 state 只有在失去焦点的时候才触发整个 form 表单的更新</p>
+<h2 id="实现重用"><a href="#实现重用" class="headerlink" title="实现重用"></a>实现重用</h2><p>form 元素有大量需要重用的逻辑</p>
+<p>1，数据更新，状态管理，“双向绑定”<br>2，数据校验，正则，异步，限制输入，错误提示<br>3，onChange 事件<br>4，format</p>
+<p>那么三大 form 组件库是怎样实现重用的呢？</p>
+<p>基本思路是在展现元素外层包一层组件，所有逻辑都在外层组件实现。</p>
+<p>react 实现重用的方式有 HOC，render props 和 mixin。 当然 mixin 已经不推荐了。</p>
+<p>以上方法都是解决<a href="https://zh-hans.reactjs.org/docs/higher-order-components.html#use-hocs-for-crossing-cutting-concerns" target="_blank" rel="external">横切关注点</a>的问题。下面介绍下HOC，render props 由于 mixin 官方已经不推荐了，有兴趣的同学可以看看 <a href="https://zh-hans.reactjs.org/blog/2016/07/13/mixins-considered-harmful.html" target="_blank" rel="external">Mixins Considered Harmful</a></p>
+<h3 id="HOC"><a href="#HOC" class="headerlink" title="HOC"></a>HOC</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">HOCKPIGrid</span>(<span class="params">WrappedComponent</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">    render () &#123;</div><div class="line">      <span class="keyword">return</span> (</div><div class="line">        &lt;WrappedComponent</div><div class="line">          &#123;...this.props&#125;</div><div class="line">          &#123;...newProps&#125;</div><div class="line">        /&gt;</div><div class="line">      );</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>HOC 能带来</p>
+<p>1，相同的生命周期函数。处理例如挂载监听与卸载时卸载监听。<br>2，props 相同的处理逻辑，这正是表单元素需要的。</p>
+<p>在使用 HOC 不建议改变原始组件，所以输入提示就不适合用这种方式来做。</p>
+<h3 id="render-props"><a href="#render-props" class="headerlink" title="render props"></a>render props</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Field</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  render () &#123;</div><div class="line">    <span class="keyword">const</span> &#123;</div><div class="line">      render,</div><div class="line">      component,</div><div class="line">      children,</div><div class="line">      ...rest</div><div class="line">    &#125; = <span class="keyword">this</span>.props;</div><div class="line">    <span class="keyword">if</span> (component) &#123;</div><div class="line">      <span class="keyword">return</span> React.createElement(component, componentProps, children);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (render) &#123;</div><div class="line">      <span class="keyword">return</span> render(inlineProps);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> children === <span class="string">'function'</span>) &#123;</div><div class="line">      <span class="keyword">return</span> children(inlineProps);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> children;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到 render props 支持三种渲染方式，但是目的都只有一个处理 props。render props 能带来</p>
+<p>1，与 HOC 一样， props 相同的处理逻辑<br>2，动态 children</p>
+<p>以上两种方式虽然分开介绍，但是它们时可以组合使用的。</p>
+<h2 id="自定义表单元素"><a href="#自定义表单元素" class="headerlink" title="自定义表单元素"></a>自定义表单元素</h2><p><strong>antd from: getFieldDecorator()(CustomizeComponent)</strong><br>CustomizeComponent 里面需要调用 <code>this.props.onChange(value)</code></p>
+<p><strong>react-final-form: </strong></p>
+<ol>
+<li><p>children<br>(props) =&gt; {};</p>
+</li>
+<li><p>render<br>(props) =&gt; {}; </p>
+</li>
+<li><p>component<br>creactElement(component);</p>
+</li>
+</ol>
+<p>需要调用 <code>props.input.onChange(value)</code></p>
+<p><strong>redux-form: creactElement(component);</strong><br>也需要调用 <code>props.input.onChange(value)</code></p>
+<p>function as children 每次父组件有更新，都会导致子元素的重新创建。导致性能浪费。但是这样满足强的单向数据流，不用关心组件状态更新的问题，cwrp 这个坑也就成功避免了。</p>
+<p>这里发现没有一个 form 框架使用正常的 props.children 做为子组件，为什么呢？</p>
+<p>参考 <a href="http://slides.com/jiannian/deck-1" target="_blank" rel="external">http://slides.com/jiannian/deck-1</a></p>
+<p><a href="https://codesandbox.io/s/5xq58qr8qn" target="_blank" rel="external">antd</a></p>
+<p><img src="/images/react-form/antd-form.png" alt="antd-form"></p>
+<p><a href="https://codesandbox.io/s/yp2q79y5rx" target="_blank" rel="external">react form</a>, <a href="https://codesandbox.io/s/kx8qv67nk5" target="_blank" rel="external">react final form</a></p>
+<p><img src="/images/react-form/react-form.png" alt="react-form"></p>
+<p><a href="https://codesandbox.io/s/Ww4QG1Wx" target="_blank" rel="external">redux form</a></p>
+<p><img src="/images/react-form/redux-form.png" alt="redux-form"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React/" rel="tag"># React</a>
+          
+            <a href="/tags/Component/" rel="tag"># Component</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/06/webpack_load_image/" rel="next" title="Webpack 解决 CSS 图片加载问题">
+                <i class="fa fa-chevron-left"></i> Webpack 解决 CSS 图片加载问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/09/react-context-introduce/" rel="prev" title="react context introduce">
+                react context introduce <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avator.jpg"
+               alt="Jeffry Yu" />
+          <p class="site-author-name" itemprop="name">Jeffry Yu</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写法"><span class="nav-number">1.</span> <span class="nav-text">写法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能"><span class="nav-number">2.</span> <span class="nav-text">性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现重用"><span class="nav-number">3.</span> <span class="nav-text">实现重用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HOC"><span class="nav-number">3.1.</span> <span class="nav-text">HOC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#render-props"><span class="nav-number">3.2.</span> <span class="nav-text">render props</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义表单元素"><span class="nav-number">4.</span> <span class="nav-text">自定义表单元素</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeffry Yu</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+<div>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

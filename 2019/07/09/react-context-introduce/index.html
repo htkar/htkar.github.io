@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="React,性能优化,why-did-you-update,源码," />
+  <meta name="keywords" content="React,React Context," />
 
 
 
@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="虽然说使用 React 已经可以得到很好的性能了，但是还是会有一些使用方法的不对会导致 React 应用的性能下降。官方文档也有一篇文章专门介绍如何优化性能，「Avoid Reconciliation」这一节我觉得值得一看。 下面我要说的也是围绕「Avoid Reconciliation」这一节的内容来进行展开。首先「Reconciliation」是什么意思呢，我理解的是需要调用组件的 rende">
-<meta name="keywords" content="React,性能优化,why-did-you-update,源码">
+<meta name="description" content="Provider123456789class App extends React.Component &amp;#123;  render() &amp;#123;    return (      &amp;lt;ThemeContext.Provider value=&quot;dark&quot;&amp;gt;        &amp;lt;Toolbar /&amp;gt;      &amp;lt;/ThemeContext.Provider&amp;gt;    )">
+<meta name="keywords" content="React,React Context">
 <meta property="og:type" content="article">
-<meta property="og:title" content="React 性能优化">
-<meta property="og:url" content="http://yoursite.com/2017/10/28/react-performance-optimization/index.html">
+<meta property="og:title" content="react context introduce">
+<meta property="og:url" content="http://yoursite.com/2019/07/09/react-context-introduce/index.html">
 <meta property="og:site_name" content="不要温柔的走进那个良夜">
-<meta property="og:description" content="虽然说使用 React 已经可以得到很好的性能了，但是还是会有一些使用方法的不对会导致 React 应用的性能下降。官方文档也有一篇文章专门介绍如何优化性能，「Avoid Reconciliation」这一节我觉得值得一看。 下面我要说的也是围绕「Avoid Reconciliation」这一节的内容来进行展开。首先「Reconciliation」是什么意思呢，我理解的是需要调用组件的 rende">
-<meta property="og:updated_time" content="2017-11-12T04:02:00.000Z">
+<meta property="og:description" content="Provider123456789class App extends React.Component &amp;#123;  render() &amp;#123;    return (      &amp;lt;ThemeContext.Provider value=&quot;dark&quot;&amp;gt;        &amp;lt;Toolbar /&amp;gt;      &amp;lt;/ThemeContext.Provider&amp;gt;    )">
+<meta property="og:updated_time" content="2019-07-09T10:12:15.638Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="React 性能优化">
-<meta name="twitter:description" content="虽然说使用 React 已经可以得到很好的性能了，但是还是会有一些使用方法的不对会导致 React 应用的性能下降。官方文档也有一篇文章专门介绍如何优化性能，「Avoid Reconciliation」这一节我觉得值得一看。 下面我要说的也是围绕「Avoid Reconciliation」这一节的内容来进行展开。首先「Reconciliation」是什么意思呢，我理解的是需要调用组件的 rende">
+<meta name="twitter:title" content="react context introduce">
+<meta name="twitter:description" content="Provider123456789class App extends React.Component &amp;#123;  render() &amp;#123;    return (      &amp;lt;ThemeContext.Provider value=&quot;dark&quot;&amp;gt;        &amp;lt;Toolbar /&amp;gt;      &amp;lt;/ThemeContext.Provider&amp;gt;    )">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/10/28/react-performance-optimization/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/07/09/react-context-introduce/"/>
 
 
 
 
 
-  <title>React 性能优化 | 不要温柔的走进那个良夜</title>
+  <title>react context introduce | 不要温柔的走进那个良夜</title>
   
 
 
@@ -256,7 +256,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/28/react-performance-optimization/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/react-context-introduce/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeffry Yu">
@@ -273,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">React 性能优化</h1>
+          <h1 class="post-title" itemprop="name headline">react context introduce</h1>
         
 
         <div class="post-meta">
@@ -285,8 +285,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-28T14:30:01+08:00">
-                10.28.2017
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-09T17:58:00+08:00">
+                07.09.2019
               </time>
             
 
@@ -320,21 +320,10 @@
       
 
       
-        <p>虽然说使用 React 已经可以得到很好的性能了，但是还是会有一些使用方法的不对会导致 React 应用的性能下降。官方文档也有一篇<a href="https://reactjs.org/docs/optimizing-performance.html#avoid-reconciliation" target="_blank" rel="external">文章</a>专门介绍如何优化性能，「Avoid Reconciliation」这一节我觉得值得一看。</p>
-<p>下面我要说的也是围绕「Avoid Reconciliation」这一节的内容来进行展开。首先「Reconciliation」是什么意思呢，我理解的是需要调用组件的 <code>render()</code> 方法进行重新渲染，用生成新的虚拟 DOM 与老的虚拟 DOM 对比，以此来决定是否需要更新 DOM。React 在重新渲染之前会去判断 <code>shouldComponentUpdate()</code> 函数返回的值。如果为 <code>true</code> 就是需要重新渲染，如果为 <code>false</code> 就什么也不做。<code>shouldComponentUpdate()</code> 默认返回 <code>true</code>，也就是始终需要重新渲染。所以我们需要重新实现 <code>shouldComponentUpdate()</code> 只有在我们需要重新渲染的时候才返回 <code>true</code>。这样一来是不是每个组件都需要我们去实现 <code>shouldComponentUpdate()</code>，实际上是不用。如果你是通过继承 <code>PureComponent</code> 来实现的组件，只有在 <code>state</code> 或者 <code>props</code> 改变的时候才会需要重新渲染，可以看下 <code>ReactCompositeComponent.updateComponent()</code> 源码。建议多使用 <code>PureComponent</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">updateComponent: <span class="function"><span class="keyword">function</span> (<span class="params">transaction, prevParentElement, nextParentElement, prevUnmaskedContext, nextUnmaskedContext</span>) </span>&#123;</div><div class="line"><span class="comment">//……</span></div><div class="line">  <span class="keyword">var</span> shouldUpdate = <span class="literal">true</span>;</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (inst.shouldComponentUpdate) &#123;</div><div class="line">    shouldUpdate = inst.shouldComponentUpdate(nextProps, nextState, nextContext);</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>._compositeType === CompositeTypes.PureClass) &#123;</div><div class="line">      shouldUpdate = !shallowEqual(prevProps, nextProps) || !shallowEqual(inst.state, nextState);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"><span class="comment">//……</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>我们可以想象一下在一个表单页面。有很多的 <code>input</code> 组件。每输入一个值都会导致所有的 <code>input</code> 重新渲染。为了优化，我们需要封装一下 <code>input</code> 组件。在只有自身改变的时候才重新渲染。如果页面上有10个 <code>input</code>，那么优化过后就只用花之前的 1/10 的性能就可以完成之前的渲染任务。这样就指导我们一个组件不能写的太大，做好组件间的隔离，频繁改动的组件要不影响其他组件。</p>
-<p>之前自己一直有个错误的想法，认为 <code>PureComponent</code> 实现的 <code>shouldComponentUpdate()</code> 方法里面 <code>shallowEqual(prevProps, nextProps)</code> 不能正确的判断 <code>function</code> 导致 <code>props</code> 里面如果传了 <code>function</code> 的话，即使所有属性都没改变，也会引起组件的重新渲染。当时还把这个当成教条牢记在心中，<code>props</code> 里面有 <code>function</code> 的话不能使用 <code>PureComponent</code>，因为这会导致 <code>shouldComponentUpdate()</code> 不能像预期一样正常工作。直到写这篇文章的时候再去看以前的代码，才发现，原来我传入的 <code>function</code> 是一个柯里化函数，每次父组件 <code>render()</code> 都会生成一个新的函数。好囧。</p>
-<p>为了避免我们无意识的在 <code>render()</code> 里面创建了一个新对象。就要避免对产生新对象的方法的使用。尤其是需要传递给子组件的 <code>props</code>，这里有一个比 <code>render()</code> 是纯函数还要高的要求。不只要求同样的传入始终返回一样的结果，还要求如果输入没有变化的话，那么就不应该输入新的对象。换句话说不产生新对象就对了。包括自身的 <code>props</code> 和 <code>state</code>。如果你是使用的 Redux 那么就应该在 <code>reducer</code> 里面就把所有数据准备好。</p>
-<p>说了这么多，搞得我们像走钢丝样都不敢轻易写代码了。有没有比较好的方式去检查不应该重新渲染的地方却重新渲染了呢？既然我们能想到这个问题当然那些大牛也能想到，并且早就提供了成熟的类库供我们使用。这个类库就 是 <code>why-did-you-update</code>。一旦我们在项目中引入了 <code>why-did-you-update</code>，就会在控制台中以警告的形式提示我们哪些地方该优化了。</p>
-<p><code>why-did-you-update</code> 触发提示的条件是，如果 <code>shouldComponentUpdate()</code> 返回的是 <code>true</code>， 那么组件的生命周期方法 <code>componentDidUpdate()</code> 调用时， <code>why-did-you-update</code> 就会去比较每个 <code>props</code> 的属性，每个 <code>state</code> 的属性，去判断到底是不是真的发生了变化。如果你是骗了 React 去更新页面，那么就不会逃脱 <code>why-did-you-update</code> 的法眼，不管是浅拷贝还是深拷贝。但是如果触发页面重新请求数据，但是数据还是以前的数据，没有更新，那么最好有一种缓存机制直接返回之前的数据。但是也不要忘了，一旦有数据变化一定要返回新的对象。</p>
-<blockquote>
-<p><a href="http://www.zcfy.cc/article/the-inner-workings-of-virtual-dom-rajaraodv-medium-3248.html" target="_blank" rel="external">虚拟 DOM 内部是如何工作的</a> </p>
-<p><a href="https://reactjs.org/docs/optimizing-performance.html" target="_blank" rel="external">Optimizing Performance</a></p>
-<p><a href="https://segmentfault.com/a/1190000006741060" target="_blank" rel="external">React PureComponent 源码解析</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/27978106" target="_blank" rel="external">[译]高性能React: 3个工具提高你app的速度</a></p>
-</blockquote>
-
+        <h2 id="Provider"><a href="#Provider" class="headerlink" title="Provider"></a>Provider</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;ThemeContext.Provider value="dark"&gt;</div><div class="line">        &lt;Toolbar /&gt;</div><div class="line">      &lt;/ThemeContext.Provider&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Provider 只接收一个 props 为 value 的值</p>
+<h2 id="两种用法"><a href="#两种用法" class="headerlink" title="两种用法"></a>两种用法</h2><h3 id="1，static-contextType"><a href="#1，static-contextType" class="headerlink" title="1，static contextType"></a>1，static contextType</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThemedButton</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="keyword">static</span> contextType = ThemeContext;</div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> &lt;Button theme=&#123;this.context&#125; /&gt;;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2，Context-Consumer-function-as-children"><a href="#2，Context-Consumer-function-as-children" class="headerlink" title="2，Context.Consumer function as children"></a>2，Context.Consumer function as children</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;MyContext.Consumer&gt;</div><div class="line">  &#123;value =&gt; &#123;</div><div class="line">   <span class="keyword">return</span> &lt;input value=&#123;value&#125; /&gt;;</div><div class="line">  &#125;&#125;</div><div class="line">&lt;/MyContext.Consumer&gt;</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -365,11 +354,7 @@
           
             <a href="/tags/React/" rel="tag"># React</a>
           
-            <a href="/tags/性能优化/" rel="tag"># 性能优化</a>
-          
-            <a href="/tags/why-did-you-update/" rel="tag"># why-did-you-update</a>
-          
-            <a href="/tags/源码/" rel="tag"># 源码</a>
+            <a href="/tags/React-Context/" rel="tag"># React Context</a>
           
         </div>
       
@@ -382,8 +367,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/20/handle-js-exception/" rel="next" title="处理 JS 中的异常">
-                <i class="fa fa-chevron-left"></i> 处理 JS 中的异常
+              <a href="/2019/07/08/react-form/" rel="next" title="antd form(rc-form) vs redux-form vs react-final-form">
+                <i class="fa fa-chevron-left"></i> antd form(rc-form) vs redux-form vs react-final-form
               </a>
             
           </div>
@@ -392,8 +377,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/11/12/react-update/" rel="prev" title="React 的一次事务更新">
-                React 的一次事务更新 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/07/10/cross-cutting-concerns/" rel="prev" title="Cross-Cutting Concerns">
+                Cross-Cutting Concerns <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -441,8 +426,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avator.jpg"
@@ -495,6 +489,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Provider"><span class="nav-number">1.</span> <span class="nav-text">Provider</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#两种用法"><span class="nav-number">2.</span> <span class="nav-text">两种用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1，static-contextType"><span class="nav-number">2.1.</span> <span class="nav-text">1，static contextType</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2，Context-Consumer-function-as-children"><span class="nav-number">2.2.</span> <span class="nav-text">2，Context.Consumer function as children</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
